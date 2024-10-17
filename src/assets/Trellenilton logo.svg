@@ -1,160 +1,48 @@
-<?xml version="1.0" encoding="utf-8"?>
-<svg id="master-artboard" viewBox="0 0 663.7373046875 69.83487701416016" version="1.1"
-    xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" style="enable-background:new 0 0 1400 980;"
-    width="663.7373046875px" height="69.83487701416016px" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <defs>
-        <style id="ee-google-fonts">
-            @import
-            url(https://fonts.googleapis.com/css?family=Rubik:300,300italic,400,400italic,500,500italic,700,700italic,900,900italic);</style>
-    </defs>
-    <rect id="ee-background" x="0" y="0" width="663.7373046875" height="69.83487701416016"
-        style="fill: white; fill-opacity: 1; pointer-events: none;" />
-
-
-    <g
-        transform="matrix(1.2760417461395264, 0, 0, 1.2760417461395264, -322.0321960449219, -454.266699552536)">
-        <metadata id="metadata209798">
-
-        </metadata>
-        <linearGradient spreadMethod="pad" y2="30%" x2="-10%" y1="120%" x1="30%"
-            id="3d_gradient2-logo-8f2be217-05ee-4723-a6cf-551dcef1853a">
-            <stop id="stop209773" stop-opacity="1" stop-color="#ffffff" offset="0%" />
-            <stop id="stop209775" stop-opacity="1" stop-color="#000000" offset="100%" />
-        </linearGradient>
-        <linearGradient gradientTransform="rotate(-30)" spreadMethod="pad" y2="30%" x2="-10%"
-            y1="120%" x1="30%" id="3d_gradient3-logo-8f2be217-05ee-4723-a6cf-551dcef1853a">
-            <stop id="stop209778" stop-opacity="1" stop-color="#ffffff" offset="0%" />
-            <stop id="stop209780" stop-opacity="1" stop-color="#cccccc" offset="50%" />
-            <stop id="stop209782" stop-opacity="1" stop-color="#000000" offset="100%" />
-        </linearGradient>
-        <g id="logo-group">
-            <image id="container" x="272" y="144" width="480" height="480" style="display: none;"
-                transform="translate(0 0)" xlink:href="" />
-            <g id="logo-center" transform="translate(-1.1368683772161603e-13 0)">
-                <image id="icon_container" x="0" y="0" style="display: none;" xlink:href="" />
-                <g id="slogan"
-                    style="font-style:normal;font-weight:400;font-size:32px;line-height:1;font-family:Quicksand;font-variant-ligatures:none;text-align:center;text-anchor:middle"
-                    transform="translate(0 0)" />
-                <g id="title"
-                    style="font-style:normal;font-weight:normal;font-size:72px;line-height:1;font-family:'Brandmark Sans 11 Color Shadow';font-variant-ligatures:normal;text-align:center;text-anchor:middle"
-                    transform="translate(0 0)">
-                    <g id="path209801" aria-label="^T"
-                        transform="translate(0 283.024387745) translate(253.75412799999998 77.86196532000001) scale(0.67) translate(-234.61312 72.096904)">
-                        <path d="M 88.927643 64 H 104.911813 V 136 H 88.927643 V 64 Z" class="c1"
-                            transform="translate(166.780631 -136.096904)" stroke-width="0"
-                            stroke-linejoin="miter" stroke-miterlimit="2" fill="#d1d3da"
-                            stroke="#d1d3da" />
-                        <path
-                            d="M 67.832489 64.000267 H 126.00705 V 77.853197 H 67.832489 V 64.000267 Z"
-                            class="c2" transform="translate(166.780631 -136.096904)"
-                            stroke-width="0" stroke-linejoin="miter" stroke-miterlimit="2"
-                            fill="#8a6a8a" stroke="#8a6a8a" />
-                        <linearGradient id="c8a5c485-2af6-4183-a287-df49ecabd37f"
-                            gradientUnits="userSpaceOnUse" x1="96.91972" y1="92.4425" x2="96.91972"
-                            y2="124.24182" gradientTransform="matrix(1 0 0 -1 0 202)">
-                            <stop offset="0" style="stop-color:#000000;stop-opacity:0" />
-                            <stop offset="0.32525" style="stop-color:#000000;stop-opacity:0.29272" />
-                            <stop offset="0.72238" style="stop-color:#000000;stop-opacity:0.65014" />
-                            <stop offset="1" style="stop-color:#000000;stop-opacity:0.9" />
-                        </linearGradient>
-                        <path
-                            d="M 88.927643 77.853203 H 104.911813 V 135.999943 H 88.927643 V 77.853203 Z"
-                            class="highlight" fill="url(#c8a5c485-2af6-4183-a287-df49ecabd37f)"
-                            transform="translate(166.780631 -136.096904)" stroke-width="0"
-                            stroke-linejoin="miter" stroke-miterlimit="2" opacity="0.73" />
-                    </g>
-                    <g id="path209803" aria-label="r"
-                        transform="translate(0 283.024387745) translate(306.37296660000004 89.80834471) scale(0.67) translate(-293.1487 54.266487)">
-                        <path class="c1"
-                            d="M111.9397,82.1179v13.78455c-5.56665,0-10.09473,4.52802-10.09497,10.09473h0.00024v29.98432H88.06055 v-29.98396h-0.00049C88.06007,92.83012,98.77247,82.1179,111.9397,82.1179z"
-                            transform="translate(205.08864 -136.384387)" stroke-width="0"
-                            stroke-linejoin="miter" stroke-miterlimit="2" fill="#d1d3da"
-                            stroke="#d1d3da" />
-                    </g>
-                    <g id="path209805" aria-label="e"
-                        transform="translate(0 283.024387745) translate(340.9697767 89.80834471) scale(0.67) translate(-324.78573 54.266487)">
-                        <path class="c1"
-                            d="M127.05489,114.70634c0.34033-1.6922,0.51074-3.43768,0.51074-5.22571 c0-1.67102-0.14893-3.29944-0.44678-4.88525c-2.29883-12.87817-13.59131-22.6806-27.11914-22.6806 c-15.19824,0-27.56543,12.36743-27.56543,27.56586c0,15.1983,12.36719,27.56568,27.56543,27.56568 c11.95264,0,22.14844-7.6524,25.96973-18.30616h-15.83691c-2.51221,2.74585-6.12012,4.47003-10.13281,4.47003 c-5.71484,0-10.63232-3.52277-12.68652-8.50385h25.38428H127.05489z M87.17501,104.59538 c1.96924-5.16193,6.98193-8.84454,12.82471-8.84454c5.854,0,10.85645,3.68262,12.83594,8.84454H87.17501z"
-                            transform="translate(252.35145 -136.181267)" stroke-width="0"
-                            stroke-linejoin="miter" stroke-miterlimit="2" fill="#d1d3da"
-                            stroke="#d1d3da" />
-                    </g>
-                    <g id="path209807" aria-label="l"
-                        transform="translate(0 283.024387745) translate(399.0865281 77.86196532000001) scale(0.67) translate(-391.52715 72.096904)">
-                        <path class="c1" d="M106.92648,136H93.07352V64h13.85295V136z"
-                            transform="translate(298.45363 -136.096904)" stroke-width="0"
-                            stroke-linejoin="miter" stroke-miterlimit="2" fill="#d1d3da"
-                            stroke="#d1d3da" />
-                    </g>
-                    <g id="path209809" aria-label="l"
-                        transform="translate(0 283.024387745) translate(430.5765281 77.86196532000001) scale(0.67) translate(-418.52715 72.096904)">
-                        <path class="c1" d="M106.92648,136H93.07352V64h13.85295V136z"
-                            transform="translate(325.45363 -136.096904)" stroke-width="0"
-                            stroke-linejoin="miter" stroke-miterlimit="2" fill="#d1d3da"
-                            stroke="#d1d3da" />
-                    </g>
-                    <g id="path209811" aria-label="e"
-                        transform="translate(0 283.024387745) translate(460.9730546 89.80834471) scale(0.67) translate(-443.8951 54.266487)">
-                        <path class="c1"
-                            d="M127.05489,114.70634c0.34033-1.6922,0.51074-3.43768,0.51074-5.22571 c0-1.67102-0.14893-3.29944-0.44678-4.88525c-2.29883-12.87817-13.59131-22.6806-27.11914-22.6806 c-15.19824,0-27.56543,12.36743-27.56543,27.56586c0,15.1983,12.36719,27.56568,27.56543,27.56568 c11.95264,0,22.14844-7.6524,25.96973-18.30616h-15.83691c-2.51221,2.74585-6.12012,4.47003-10.13281,4.47003 c-5.71484,0-10.63232-3.52277-12.68652-8.50385h25.38428H127.05489z M87.17501,104.59538 c1.96924-5.16193,6.98193-8.84454,12.82471-8.84454c5.854,0,10.85645,3.68262,12.83594,8.84454H87.17501z"
-                            transform="translate(371.46082 -136.181267)" stroke-width="0"
-                            stroke-linejoin="miter" stroke-miterlimit="2" fill="#d1d3da"
-                            stroke="#d1d3da" />
-                    </g>
-                    <g id="path209813" aria-label="n"
-                        transform="translate(0 283.024387745) translate(518.2457735 89.80834471) scale(0.67) translate(-509.37677 54.266487)">
-                        <path class="c1"
-                            d="M127.05909,108.92228l-0.00049,27.05921h-13.84961v-27.06886 c-0.00537-7.27924-5.92871-13.19904-13.20923-13.19904c-7.28394,0-13.20874,5.92499-13.20874,13.20868h-0.00049v27.05921H72.94093 l0.00049-27.05921c0-14.9201,12.13818-27.05829,27.05835-27.05829S127.05909,94.00217,127.05909,108.92228z"
-                            transform="translate(436.43584 -136.130467)" stroke-width="0"
-                            stroke-linejoin="miter" stroke-miterlimit="2" fill="#d1d3da"
-                            stroke="#d1d3da" />
-                    </g>
-                    <g id="path209815" aria-label="i"
-                        transform="translate(0 283.024387745) translate(574.9800536 75.13507403) scale(0.67) translate(-574.0548 76.166891)">
-                        <path class="c1" d="M93.22384,83.1981h13.55225v52.78339H93.22384V83.1981z"
-                            transform="translate(482.39443 -137.707701)" stroke-width="0"
-                            stroke-linejoin="miter" stroke-miterlimit="2" fill="#d1d3da"
-                            stroke="#d1d3da" />
-                        <path class="c2"
-                            d="M100.00021,78.22019c4.60596,0,8.33936-3.73383,8.33936-8.33972s-3.7334-8.33966-8.33936-8.33966 s-8.33984,3.73376-8.33984,8.33966S95.39424,78.22019,100.00021,78.22019z"
-                            transform="translate(482.39443 -137.707701)" stroke-width="0"
-                            stroke-linejoin="miter" stroke-miterlimit="2" fill="#8a6a8a"
-                            stroke="#8a6a8a" />
-                    </g>
-                    <g id="path209817" aria-label="l"
-                        transform="translate(0 283.024387745) translate(608.1684031000001 77.86196532000001) scale(0.67) translate(-603.58965 72.096904)">
-                        <path class="c1" d="M106.92648,136H93.07352V64h13.85295V136z"
-                            transform="translate(510.51613 -136.096904)" stroke-width="0"
-                            stroke-linejoin="miter" stroke-miterlimit="2" fill="#d1d3da"
-                            stroke="#d1d3da" />
-                    </g>
-                    <g id="path209819" aria-label="t"
-                        transform="translate(0 283.024387745) translate(639.4089688000001 77.86196532000001) scale(0.67) translate(-630.21736 72.096904)">
-                        <path class="c1"
-                            d="M113.17974,126.56028v13.85839c-14.53662,0-26.35938-11.82324-26.35938-26.35937V68.41477h13.8584v18.70361 h12.20996v12.79199h-12.20996v14.14893C100.67876,120.94016,106.2022,126.56028,113.17974,126.56028z"
-                            transform="translate(543.397 -140.511674)" stroke-width="0"
-                            stroke-linejoin="miter" stroke-miterlimit="2" fill="#d1d3da"
-                            stroke="#d1d3da" />
-                    </g>
-                    <g id="path209821" aria-label="o"
-                        transform="translate(0 283.024387745) translate(676.7444642 89.80834471) scale(0.67) translate(-665.94198 54.266487)">
-                        <path class="c1"
-                            d="M99.99948,137.0463c-15.12766,0-27.43525-12.30759-27.43525-27.43525 c0-15.1287,12.30759-27.43628,27.43525-27.43628c15.1287,0,27.43629,12.30758,27.43629,27.43628 C127.43577,124.73871,115.12818,137.0463,99.99948,137.0463z M99.99948,95.94618c-7.53435,0-13.66383,6.13052-13.66383,13.66486 s6.12948,13.66383,13.66383,13.66383s13.66486-6.12948,13.66486-13.66383S107.53383,95.94618,99.99948,95.94618z"
-                            transform="translate(593.37775 -136.441257)" stroke-width="0"
-                            stroke-linejoin="miter" stroke-miterlimit="2" fill="#d1d3da"
-                            stroke="#d1d3da" />
-                    </g>
-                    <g id="path209823" aria-label="n"
-                        transform="translate(0 283.024387745) translate(734.0171764 89.80834471) scale(0.67) translate(-731.42364 54.266487)">
-                        <path class="c1"
-                            d="M127.05909,108.92228l-0.00049,27.05921h-13.84961v-27.06886 c-0.00537-7.27924-5.92871-13.19904-13.20923-13.19904c-7.28394,0-13.20874,5.92499-13.20874,13.20868h-0.00049v27.05921H72.94093 l0.00049-27.05921c0-14.9201,12.13818-27.05829,27.05835-27.05829S127.05909,94.00217,127.05909,108.92228z"
-                            transform="translate(658.48271 -136.130467)" stroke-width="0"
-                            stroke-linejoin="miter" stroke-miterlimit="2" fill="#d1d3da"
-                            stroke="#d1d3da" />
-                    </g>
-                </g>
-                <image id="icon" x="0" y="0" style="display: none;" xlink:href="" />
-            </g>
-        </g>
+<svg width="664" height="70" viewBox="0 0 664 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g clip-path="url(#clip0_29_77)">
+        <path d="M19.8047 6.23828H33.4703V67.7945H19.8047V6.23828Z" fill="#D1D3DA" />
+        <path d="M1.76953 6.23828H51.5058V18.0818H1.76953V6.23828Z" fill="#8A6A8A" />
+        <path opacity="0.73" d="M19.8047 18.082H33.4703V67.7945H19.8047V18.082Z"
+            fill="url(#paint0_linear_29_77)" />
+        <path
+            d="M89.3299 21.4805V33.2655C84.5707 33.2655 80.6994 37.1368 80.6992 41.896L80.6994 67.5311H68.9145V41.8963C68.9145 30.6389 78.0726 21.4805 89.3299 21.4805Z"
+            fill="#D1D3DA" />
+        <path
+            d="M159.756 49.5155C160.047 48.0688 160.193 46.5765 160.193 45.0478C160.193 43.6192 160.066 42.227 159.811 40.8712C157.846 29.861 148.191 21.4805 136.626 21.4805C123.632 21.4805 113.059 32.054 113.059 45.0478C113.059 58.0416 123.632 68.6151 136.626 68.6151C146.844 68.6151 155.561 62.0727 158.828 52.9643H145.289C143.141 55.3118 140.056 56.7859 136.626 56.7859C131.74 56.7859 127.536 53.7741 125.779 49.5155H147.482H159.756ZM125.661 40.8712C127.345 36.458 131.63 33.3096 136.626 33.3096C141.63 33.3096 145.907 36.458 147.6 40.8712H125.661Z"
+            fill="#D1D3DA" />
+        <path d="M199.062 67.7945H187.219V6.23828H199.062L199.062 67.7945Z" fill="#D1D3DA" />
+        <path d="M239.246 67.7945H227.402V6.23828H239.246L239.246 67.7945Z" fill="#D1D3DA" />
+        <path
+            d="M312.889 49.5155C313.18 48.0688 313.326 46.5765 313.326 45.0478C313.326 43.6192 313.199 42.227 312.944 40.8712C310.978 29.861 301.324 21.4805 289.758 21.4805C276.765 21.4805 266.191 32.054 266.191 45.0478C266.191 58.0416 276.765 68.6151 289.758 68.6151C299.977 68.6151 308.694 62.0727 311.961 52.9643H298.421C296.274 55.3118 293.189 56.7859 289.758 56.7859C284.873 56.7859 280.668 53.7741 278.912 49.5155H300.614H312.889ZM278.794 40.8712C280.478 36.458 284.763 33.3096 289.758 33.3096C294.763 33.3096 299.04 36.458 300.732 40.8712H278.794Z"
+            fill="#D1D3DA" />
+        <path
+            d="M385.542 44.6139L385.541 67.7481H373.701V44.6057C373.696 38.3823 368.632 33.3212 362.407 33.3212C356.18 33.3212 351.115 38.3867 351.115 44.6139L351.114 67.7481H339.273L339.274 44.6139C339.274 31.858 349.651 21.4805 362.407 21.4805C375.163 21.4805 385.542 31.858 385.542 44.6139Z"
+            fill="#D1D3DA" />
+        <path d="M413.004 21.2734H424.59V66.4005H413.004V21.2734Z" fill="#D1D3DA" />
+        <path
+            d="M418.798 17.0178C422.736 17.0178 425.928 13.8256 425.928 9.88779C425.928 5.94999 422.736 2.75781 418.798 2.75781C414.86 2.75781 411.668 5.94998 411.668 9.88779C411.668 13.8256 414.86 17.0178 418.798 17.0178Z"
+            fill="#8A6A8A" />
+        <path d="M465.859 67.7945H454.016V6.23828H465.859L465.859 67.7945Z" fill="#D1D3DA" />
+        <path
+            d="M516.419 55.9497V67.7979C503.991 67.7979 493.883 57.6896 493.883 45.262V6.23828H505.731V22.2289H516.17V33.1654H505.731V45.262C505.731 51.1448 510.453 55.9497 516.419 55.9497Z"
+            fill="#D1D3DA" />
+        <path
+            d="M564.979 68.3928C552.046 68.3928 541.523 57.8704 541.523 44.9371C541.523 32.0028 552.046 21.4805 564.979 21.4805C577.913 21.4805 588.436 32.0028 588.436 44.9371C588.436 57.8704 577.913 68.3928 564.979 68.3928ZM564.979 33.2543C558.538 33.2543 553.297 38.4956 553.297 44.9371C553.297 51.3785 558.538 56.6189 564.979 56.6189C571.421 56.6189 576.662 51.3785 576.662 44.9371C576.662 38.4956 571.421 33.2543 564.979 33.2543Z"
+            fill="#D1D3DA" />
+        <path
+            d="M660.874 44.6139L660.873 67.7481H649.033V44.6057C649.028 38.3823 643.964 33.3212 637.739 33.3212C631.512 33.3212 626.447 38.3867 626.447 44.6139L626.446 67.7481H614.605L614.606 44.6139C614.606 31.858 624.983 21.4805 637.739 21.4805C650.495 21.4805 660.874 31.858 660.874 44.6139Z"
+            fill="#D1D3DA" />
     </g>
+    <defs>
+        <linearGradient id="paint0_linear_29_77" x1="26.6375" y1="45.1876" x2="26.6375" y2="18.0008"
+            gradientUnits="userSpaceOnUse">
+            <stop stop-opacity="0" />
+            <stop offset="0.32525" stop-opacity="0.29272" />
+            <stop offset="0.72238" stop-opacity="0.65014" />
+            <stop offset="1" stop-opacity="0.9" />
+        </linearGradient>
+        <clipPath id="clip0_29_77">
+            <rect width="663.737" height="69.8349" fill="white" />
+        </clipPath>
+    </defs>
 </svg>
