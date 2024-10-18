@@ -18,6 +18,12 @@ export const navItems: NavItem[] = [
     href: '/login',
     icon: 'login',
     label: 'Login'
+  },
+  {
+    title: 'Products',
+    href: '/products',
+    icon: 'media',
+    label: 'Products'
   }
 ];
 
