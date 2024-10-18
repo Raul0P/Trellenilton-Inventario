@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import PageHead from '@/components/shared/page-head';
 
 export default function ProductsPage() {
   const [data, setData] = useState([
@@ -61,54 +62,60 @@ export default function ProductsPage() {
   };
 
   return (
-    <div className="container mx-auto py-10">
-      <DataTable
-        columns={columns}
-        data={data}
-        onAddProduct={handleAddProduct}
-      />
-      <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Adicionar Novo Produto</DialogTitle>
-          </DialogHeader>
-          <div className="grid gap-4 py-4">
-            <Input
-              placeholder="Nome"
-              value={newProduct.name}
-              onChange={(e) =>
-                setNewProduct({ ...newProduct, name: e.target.value })
-              }
-            />
-            <Input
-              type="number"
-              placeholder="Preço"
-              value={newProduct.price}
-              onChange={(e) =>
-                setNewProduct({
-                  ...newProduct,
-                  price: parseFloat(e.target.value)
-                })
-              }
-            />
-            <Input
-              placeholder="Description"
-              value={newProduct.description}
-              onChange={(e) =>
-                setNewProduct({ ...newProduct, description: e.target.value })
-              }
-            />
-            <Input
-              placeholder="Supplier"
-              value={newProduct.supplier}
-              onChange={(e) =>
-                setNewProduct({ ...newProduct, supplier: e.target.value })
-              }
-            />
-          </div>
-          <Button onClick={handleSaveProduct}>Save Product</Button>
-        </DialogContent>
-      </Dialog>
-    </div>
+    <>
+      <PageHead title="Produtos" />
+      <div className="max-h-screen flex-1 space-y-4 overflow-y-auto p-4 pt-6 md:p-8">
+        <h2 className="text-3xl font-bold tracking-tight">Produtos</h2>
+      </div>
+      <div className="container mx-auto py-10">
+        <DataTable
+          columns={columns}
+          data={data}
+          onAddProduct={handleAddProduct}
+        />
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Adicionar Novo Produto</DialogTitle>
+            </DialogHeader>
+            <div className="grid gap-4 py-4">
+              <Input
+                placeholder="Nome"
+                value={newProduct.name}
+                onChange={(e) =>
+                  setNewProduct({ ...newProduct, name: e.target.value })
+                }
+              />
+              <Input
+                type="number"
+                placeholder="Preço"
+                value={newProduct.price}
+                onChange={(e) =>
+                  setNewProduct({
+                    ...newProduct,
+                    price: parseFloat(e.target.value)
+                  })
+                }
+              />
+              <Input
+                placeholder="Descrição"
+                value={newProduct.description}
+                onChange={(e) =>
+                  setNewProduct({ ...newProduct, description: e.target.value })
+                }
+              />
+              <Input
+                placeholder="Fornecedor"
+                value={newProduct.supplier}
+                onChange={(e) =>
+                  setNewProduct({ ...newProduct, supplier: e.target.value })
+                }
+              />
+            </div>
+            <Button onClick={handleSaveProduct}>Salvar Produto</Button>
+          </DialogContent>
+        </Dialog>
+      </div>
+    </>
   );
 }

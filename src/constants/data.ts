@@ -22,7 +22,7 @@ export const navItems: NavItem[] = [
   {
     title: 'Products',
     href: '/products',
-    icon: 'media',
+    icon: 'billing',
     label: 'Products'
   }
 ];
