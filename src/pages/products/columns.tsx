@@ -1,5 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
+import { Edit, Trash } from 'lucide-react';
 
 export type Product = {
   id: string;
@@ -28,13 +29,27 @@ export const columns: ColumnDef<Product>[] = [
   },
   {
     id: 'actions',
-    cell: ({ row }) => (
-      <Button
-        variant="outline"
-        onClick={() => console.log('Delete', row.original)}
-      >
-        Deletar
-      </Button>
-    )
+    cell: ({ row }) => {
+      const product = row.original;
+
+      return (
+        <div className="flex items-center space-x-2">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => console.log('Edit', product)}
+          >
+            <Edit className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => console.log('Delete', product)}
+          >
+            <Trash className="h-4 w-4" />
+          </Button>
+        </div>
+      );
+    }
   }
 ];
