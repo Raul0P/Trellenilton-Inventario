@@ -8,9 +8,22 @@ export type Product = {
   price: number;
   description: string;
   supplier: string;
+  image: string;
 };
 
 export const columns: ColumnDef<Product>[] = [
+  {
+    accessorKey: 'image',
+    header: 'Imagem',
+    cell: ({ row }) => (
+      <img
+        src={row.original.image}
+        alt={row.original.name}
+        width={50}
+        height={50}
+      />
+    )
+  },
   {
     accessorKey: 'name',
     header: 'Nome'

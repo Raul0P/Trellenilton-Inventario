@@ -27,7 +27,8 @@ const productSchema = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),
   price: z.number().min(0, 'Preço deve ser maior que zero'),
   description: z.string().min(1, 'Descrição é obrigatória'),
-  supplier: z.string().min(1, 'Fornecedor é obrigatório')
+  supplier: z.string().min(1, 'Fornecedor é obrigatório'),
+  image: z.string().optional()
 });
 
 type ProductFormValues = z.infer<typeof productSchema>;
@@ -39,28 +40,32 @@ export default function ProductsPage() {
       name: 'Product 1',
       price: 19.99,
       description: 'Description for Product 1',
-      supplier: 'Supplier A'
+      supplier: 'Supplier A',
+      image: 'https://example.com/product1.jpg'
     },
     {
       id: '2',
       name: 'Product 2',
       price: 29.99,
       description: 'Description for Product 2',
-      supplier: 'Supplier B'
+      supplier: 'Supplier B',
+      image: 'https://example.com/product2.jpg'
     },
     {
       id: '3',
       name: 'Product 3',
       price: 39.99,
       description: 'Description for Product 3',
-      supplier: 'Supplier D'
+      supplier: 'Supplier C',
+      image: 'https://example.com/product3.jpg'
     },
     {
       id: '4',
       name: 'Product 4',
       price: 49.99,
       description: 'Description for Product 4',
-      supplier: 'Supplier D'
+      supplier: 'Supplier D',
+      image: 'https://example.com/product4.jpg'
     }
   ]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -92,13 +97,35 @@ export default function ProductsPage() {
     setData(data.filter((p) => p.id !== product.id));
   };
 
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        form.setValue('image', reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   const onSubmit = (values: ProductFormValues) => {
     if (editingProduct) {
       setData(
-        data.map((p) => (p.id === editingProduct.id ? { ...p, ...values } : p))
+        data.map((p) =>
+          p.id === editingProduct.id
+            ? { ...p, ...values, image: values.image || p.image }
+            : p
+        )
       );
     } else {
-      setData([...data, { id: (data.length + 1).toString(), ...values }]);
+      setData([
+        ...data,
+        {
+          id: (data.length + 1).toString(),
+          ...values,
+          image: values.image || 'default-image.jpg'
+        }
+      ]);
     }
     setIsDialogOpen(false);
     setEditingProduct(null);
@@ -159,6 +186,19 @@ export default function ProductsPage() {
                 onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-4"
               >
+                <FormField
+                  control={form.control}
+                  name="image"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Imagem</FormLabel>
+                      <FormControl>
+                        <Input type="file" onChange={handleImageUpload} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
                 <FormField
                   control={form.control}
                   name="name"

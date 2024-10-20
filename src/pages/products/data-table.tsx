@@ -10,7 +10,6 @@ import {
   getSortedRowModel,
   useReactTable
 } from '@tanstack/react-table';
-
 import {
   Table,
   TableBody,
@@ -21,7 +20,7 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-
+//import Image from 'next/image';
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
