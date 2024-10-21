@@ -15,7 +15,10 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
 const formSchema = z.object({
-  email: z.string().email({ message: 'Enter a valid email address' })
+  email: z.string().email({ message: 'Enter a valid email address' }),
+  password: z
+    .string()
+    .min(6, { message: 'Password must be at least 6 characters' })
 });
 
 type UserFormValue = z.infer<typeof formSchema>;
@@ -24,7 +27,8 @@ export default function UserAuthForm() {
   const router = useRouter();
   const [loading] = useState(false);
   const defaultValues = {
-    email: 'demo@gmail.com'
+    email: '',
+    password: ''
   };
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
@@ -33,6 +37,7 @@ export default function UserAuthForm() {
 
   const onSubmit = async (data: UserFormValue) => {
     console.log('data', data);
+    // Here you would typically send the email and password to your authentication service
     router.push('/');
   };
 
