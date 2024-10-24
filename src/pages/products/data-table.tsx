@@ -53,14 +53,26 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="flex items-center justify-between py-4">
-        <Input
-          placeholder="Filtrar produtos..."
-          value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
-          onChange={(event) =>
-            table.getColumn('name')?.setFilterValue(event.target.value)
-          }
-          className="max-w-sm"
-        />
+        <div className="flex gap-4">
+          <Input
+            placeholder="Filtrar por nome..."
+            value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
+            onChange={(event) =>
+              table.getColumn('name')?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+          <Input
+            placeholder="Filtrar por fornecedor..."
+            value={
+              (table.getColumn('supplier')?.getFilterValue() as string) ?? ''
+            }
+            onChange={(event) =>
+              table.getColumn('supplier')?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+        </div>
         <Button onClick={onAddProduct}>Adicionar Novo Produto</Button>
       </div>
       <div className="rounded-md border">

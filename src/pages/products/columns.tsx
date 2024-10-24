@@ -26,11 +26,39 @@ export const columns: ColumnDef<Product>[] = [
   },
   {
     accessorKey: 'name',
-    header: 'Nome'
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Nome
+          {column.getIsSorted() === 'asc'
+            ? ' ↑'
+            : column.getIsSorted() === 'desc'
+              ? ' ↓'
+              : ''}
+        </Button>
+      );
+    }
   },
   {
     accessorKey: 'price',
-    header: 'Preço'
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Preço
+          {column.getIsSorted() === 'asc'
+            ? ' ↑'
+            : column.getIsSorted() === 'desc'
+              ? ' ↓'
+              : ''}
+        </Button>
+      );
+    }
   },
   {
     accessorKey: 'description',
@@ -38,7 +66,21 @@ export const columns: ColumnDef<Product>[] = [
   },
   {
     accessorKey: 'supplier',
-    header: 'Fornecedor'
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Fornecedor
+          {column.getIsSorted() === 'asc'
+            ? ' ↑'
+            : column.getIsSorted() === 'desc'
+              ? ' ↓'
+              : ''}
+        </Button>
+      );
+    }
   },
   {
     id: 'actions',
