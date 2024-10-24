@@ -193,7 +193,11 @@ export default function ProductsPage() {
                     <FormItem>
                       <FormLabel>Imagem</FormLabel>
                       <FormControl>
-                        <Input type="file" onChange={handleImageUpload} />
+                        <Input
+                          type="file"
+                          onChange={handleImageUpload}
+                          className="text-slate-200 file:mr-4 file:rounded-lg file:border-0 file:bg-slate-100 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-slate-700 hover:file:bg-slate-200"
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -257,7 +261,7 @@ export default function ProductsPage() {
                     </FormItem>
                   )}
                 />
-                <Button type="submit">Save Product</Button>
+                <Button type="submit">Salvar produto</Button>
               </form>
             </Form>
           </DialogContent>
