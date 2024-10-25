@@ -1,15 +1,12 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { DataTable } from './data-table';
-import { columns, Product } from './columns';
+import { columns } from './columns';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog';
-import Produto_1 from '../../assets/produto-1.jpg';
-import Produto_2 from '../../assets/produto-2.jpg';
-import Produto_3 from '../../assets/produto-3.jpg';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
@@ -25,46 +22,26 @@ import {
 } from '@/components/ui/form';
 import PageHead from '@/components/shared/page-head';
 import { Edit, Trash } from 'lucide-react';
+import { AuthContext } from '@/context/AuthContext';
+import { IProduto } from '@/interface/axios/response/IProduto';
 
 const productSchema = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),
   price: z.number().min(0, 'Preço deve ser maior que zero'),
   description: z.string().min(1, 'Descrição é obrigatória'),
-  supplier: z.string().min(1, 'Fornecedor é obrigatório'),
-  image: z.string().optional()
+  fornecedorId: z.number().min(1, 'Fornecedor é obrigatório'),
+  image: z.string().optional(),
+  quantity: z.number().min(0, 'Quantidade deve ser maior que zero')
 });
 
 type ProductFormValues = z.infer<typeof productSchema>;
 
 export default function ProductsPage() {
-  const [data, setData] = useState<Product[]>([
-    {
-      id: '1',
-      name: 'Product 1',
-      price: 19.99,
-      description: 'Description for Product 1',
-      supplier: 'Supplier A',
-      image: Produto_1
-    },
-    {
-      id: '2',
-      name: 'Product 2',
-      price: 29.99,
-      description: 'Description for Product 2',
-      supplier: 'Supplier B',
-      image: Produto_2
-    },
-    {
-      id: '3',
-      name: 'Product 3',
-      price: 39.99,
-      description: 'Description for Product 3',
-      supplier: 'Supplier C',
-      image: Produto_3
-    }
-  ]);
+  const { produtos, updateProduct, createProduct, deleteProduct } =
+    useContext(AuthContext);
+
   const [isDialogOpen, setIsDialogOpen] = useState(false);
-  const [editingProduct, setEditingProduct] = useState<Product | null>(null);
+  const [editingProduct, setEditingProduct] = useState<IProduto | null>(null);
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productSchema),
@@ -72,7 +49,9 @@ export default function ProductsPage() {
       name: '',
       price: 0,
       description: '',
-      supplier: ''
+      fornecedorId: 0,
+      image: '',
+      quantity: 0
     }
   });
 
@@ -82,14 +61,14 @@ export default function ProductsPage() {
     setIsDialogOpen(true);
   };
 
-  const handleEditProduct = (product: Product) => {
+  const handleEditProduct = (product: IProduto) => {
     setEditingProduct(product);
     form.reset(product);
     setIsDialogOpen(true);
   };
 
-  const handleDeleteProduct = (product: Product) => {
-    setData(data.filter((p) => p.id !== product.id));
+  const handleDeleteProduct = (product: IProduto) => {
+    deleteProduct(product);
   };
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -105,22 +84,9 @@ export default function ProductsPage() {
 
   const onSubmit = (values: ProductFormValues) => {
     if (editingProduct) {
-      setData(
-        data.map((p) =>
-          p.id === editingProduct.id
-            ? { ...p, ...values, image: values.image || p.image }
-            : p
-        )
-      );
+      updateProduct({ ...editingProduct, ...values });
     } else {
-      setData([
-        ...data,
-        {
-          id: (data.length + 1).toString(),
-          ...values,
-          image: values.image || 'default-image.jpg'
-        }
-      ]);
+      createProduct(values);
     }
     setIsDialogOpen(false);
     setEditingProduct(null);
@@ -166,7 +132,7 @@ export default function ProductsPage() {
       <div className="container mx-auto py-10">
         <DataTable
           columns={updatedColumns}
-          data={data}
+          data={produtos}
           onAddProduct={handleAddProduct}
         />
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
@@ -245,7 +211,7 @@ export default function ProductsPage() {
                 />
                 <FormField
                   control={form.control}
-                  name="supplier"
+                  name="fornecedorId"
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Fornecedor</FormLabel>
