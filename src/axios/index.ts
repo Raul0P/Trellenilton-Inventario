@@ -13,5 +13,17 @@ export const API_PROVIDER = {
     const data: IProduto = res.data;
 
     return data;
+  },
+
+  createProduto: async (produto: IProduto) => {
+    const res = await api.post('produtos', produto);
+    const data: IProduto = res.data;
+
+    return data;
+  },
+  deleteProduto: async (produto: IProduto) => {
+    const res = await api.delete(`produtos/${produto.id}`);
+
+    return res.data;
   }
 };
