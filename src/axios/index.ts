@@ -7,5 +7,11 @@ export const API_PROVIDER = {
     const data: IProduto[] = res.data;
 
     return data;
+  },
+  updateProduto: async (produto: IProduto) => {
+    const res = await api.patch(`produtos/${produto.id}`, produto);
+    const data: IProduto = res.data;
+
+    return data;
   }
 };
