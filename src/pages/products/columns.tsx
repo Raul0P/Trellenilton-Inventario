@@ -1,17 +1,9 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
 import { Edit, Trash } from 'lucide-react';
+import { IProduto } from '@/interface/axios/response/IProduto';
 
-export type Product = {
-  id: string;
-  name: string;
-  price: number;
-  description: string;
-  supplier: string;
-  image: string;
-};
-
-export const columns: ColumnDef<Product>[] = [
+export const columns: ColumnDef<IProduto>[] = [
   {
     accessorKey: 'image',
     header: 'Imagem',
