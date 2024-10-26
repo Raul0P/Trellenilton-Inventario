@@ -1,4 +1,5 @@
 import { API_PROVIDER } from '@/axios';
+import { IFornecedor } from '@/interface/axios/response/IFornecedor';
 import { IProduto } from '@/interface/axios/response/IProduto';
 import { IAuthContext, IAuthProviderProps } from '@/interface/context/Auth';
 import { createContext, useEffect, useState } from 'react';
@@ -7,11 +8,16 @@ export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
 export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [produtos, setProdutos] = useState<IProduto[]>([]);
+  const [fornecedor, setFornecedor] = useState<IFornecedor[]>([]);
 
   async function getProdutos() {
     const res = await API_PROVIDER.getProdutos();
     setProdutos(res);
-    console.log(produtos);
+  }
+
+  async function getFornecedor() {
+    const res = await API_PROVIDER.getFornecedor();
+    setFornecedor(res);
   }
 
   async function updateProduct(produto: IProduto) {
@@ -33,14 +39,17 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
 
   useEffect(() => {
     getProdutos();
+    getFornecedor();
   }, []);
 
   return (
     <AuthContext.Provider
       value={{
         produtos,
+        fornecedor,
         setProdutos,
         getProdutos,
+        getFornecedor,
         updateProduct,
         createProduct,
         deleteProduct
