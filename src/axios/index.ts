@@ -1,5 +1,6 @@
 import { IProduto } from '@/interface/axios/response/IProduto';
 import api from './api-config';
+import { IFornecedor } from '@/interface/axios/response/IFornecedor';
 
 export const API_PROVIDER = {
   getProdutos: async () => {
@@ -25,5 +26,17 @@ export const API_PROVIDER = {
     const res = await api.delete(`produtos/${produto.id}`);
 
     return res.data;
+  },
+  getFornecedor: async () => {
+    const res = await api.get('fornecedor');
+    const data: IFornecedor[] = res.data.data;
+
+    return data;
+  },
+  getFornecedorById: async (id: number) => {
+    const res = await api.get(`fornecedor/${id}`);
+    const data: IFornecedor = res.data.data;
+
+    return data;
   }
 };
