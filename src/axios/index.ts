@@ -3,8 +3,8 @@ import api from './api-config';
 
 export const API_PROVIDER = {
   getProdutos: async () => {
-    const res = await api.get('produtos');
-    const data: IProduto[] = res.data;
+    const res = await api.get('produto');
+    const data: IProduto[] = res.data.data;
 
     return data;
   },
