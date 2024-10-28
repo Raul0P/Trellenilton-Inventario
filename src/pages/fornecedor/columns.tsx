@@ -1,21 +1,9 @@
 import { ColumnDef } from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
 import { Edit, Trash } from 'lucide-react';
-import { IProduto } from '@/interface/axios/response/IProduto';
+import { IFornecedor } from '@/interface/axios/response/IFornecedor';
 
-export const columns: ColumnDef<IProduto>[] = [
-  {
-    accessorKey: 'image',
-    header: 'Imagem',
-    cell: ({ row }) => (
-      <img
-        src={row.original.image}
-        alt={row.original.name}
-        width={50}
-        height={50}
-      />
-    )
-  },
+export const columns: ColumnDef<IFornecedor>[] = [
   {
     accessorKey: 'name',
     header: ({ column }) => {
@@ -35,7 +23,7 @@ export const columns: ColumnDef<IProduto>[] = [
     }
   },
   {
-    accessorKey: 'price',
+    accessorKey: 'endereco',
     header: ({ column }) => {
       return (
         <Button
@@ -53,26 +41,8 @@ export const columns: ColumnDef<IProduto>[] = [
     }
   },
   {
-    accessorKey: 'description',
-    header: 'Descrição'
-  },
-  {
-    accessorKey: 'supplier',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Fornecedor
-          {column.getIsSorted() === 'asc'
-            ? ' ↑'
-            : column.getIsSorted() === 'desc'
-              ? ' ↓'
-              : ''}
-        </Button>
-      );
-    }
+    accessorKey: 'contato',
+    header: 'Contato'
   },
   {
     id: 'actions',
