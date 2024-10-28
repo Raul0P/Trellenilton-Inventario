@@ -24,21 +24,7 @@ export const columns: ColumnDef<IFornecedor>[] = [
   },
   {
     accessorKey: 'endereco',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Preço
-          {column.getIsSorted() === 'asc'
-            ? ' ↑'
-            : column.getIsSorted() === 'desc'
-              ? ' ↓'
-              : ''}
-        </Button>
-      );
-    }
+    header: 'Endereço'
   },
   {
     accessorKey: 'contato',
