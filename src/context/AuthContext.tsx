@@ -37,6 +37,23 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     setProdutos(produtos.filter((p) => p.id !== produto.id));
   }
 
+  async function updateFornecedor(fornecedor: IFornecedor) {
+    await API_PROVIDER.updateFornecedor(fornecedor);
+    getFornecedor();
+  }
+
+  async function createFornecedor(fornecedores: IFornecedor) {
+    const res = await API_PROVIDER.createFornecedor(fornecedores);
+    setFornecedor([...fornecedor, res]);
+
+    return res;
+  }
+
+  async function deleteFornecedor(fornecedores: IFornecedor) {
+    await API_PROVIDER.deleteFornecedor(fornecedores);
+    setFornecedor(fornecedor.filter((f) => f.id !== fornecedores.id));
+  }
+
   useEffect(() => {
     getProdutos();
     getFornecedor();
@@ -52,7 +69,10 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         getFornecedor,
         updateProduct,
         createProduct,
-        deleteProduct
+        deleteProduct,
+        updateFornecedor,
+        createFornecedor,
+        deleteFornecedor
       }}
     >
       {children}
