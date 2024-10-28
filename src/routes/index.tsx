@@ -37,10 +37,6 @@ export default function AppRouter() {
           element: <StudentPage />
         },
         {
-          path: 'student/details',
-          element: <StudentDetailPage />
-        },
-        {
           path: 'form',
           element: <FormPage />
         },
