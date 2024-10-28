@@ -38,5 +38,22 @@ export const API_PROVIDER = {
     const data: IFornecedor = res.data.data;
 
     return data;
+  },
+  createFornecedor: async (fornecedor: IFornecedor) => {
+    const res = await api.post('fornecedor', fornecedor);
+    const data: IFornecedor = res.data;
+
+    return data;
+  },
+  updateFornecedor: async (fornecedor: IFornecedor) => {
+    const res = await api.patch(`fornecedor/${fornecedor.id}`, fornecedor);
+    const data: IFornecedor = res.data;
+
+    return data;
+  },
+  deleteFornecedor: async (fornecedor: IFornecedor) => {
+    const res = await api.delete(`fornecedor/${fornecedor.id}`);
+
+    return res.data;
   }
 };
