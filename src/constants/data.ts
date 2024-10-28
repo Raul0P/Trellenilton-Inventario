@@ -18,6 +18,12 @@ export const navItems: NavItem[] = [
     href: '/products',
     icon: 'billing',
     label: 'Products'
+  },
+  {
+    title: 'Fornecedor',
+    href: '/fornecedor',
+    icon: 'employee',
+    label: 'Fornecedor'
   }
 ];
 
