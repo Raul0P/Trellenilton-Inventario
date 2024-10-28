@@ -25,6 +25,7 @@ import { Edit, Trash } from 'lucide-react';
 import { AuthContext } from '@/context/AuthContext';
 import { IFornecedor } from '@/interface/axios/response/IFornecedor';
 import validateCPFOrCNPJ from '@/hooks/use-validator';
+import InputMask from 'react-input-mask';
 
 const fornecedorSchema = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),
@@ -184,7 +185,14 @@ export default function FornecedorPage() {
                     <FormItem>
                       <FormLabel>CNPJ</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <InputMask
+                          mask="99.999.999/9999-99"
+                          value={field.value}
+                          onChange={field.onChange}
+                          onBlur={field.onBlur}
+                        >
+                          {(inputProps) => <Input {...inputProps} />}
+                        </InputMask>
                       </FormControl>
                       <FormMessage />
                     </FormItem>
