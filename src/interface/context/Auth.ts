@@ -12,9 +12,9 @@ export interface IAuthContext {
   getProdutos: () => Promise<void>;
   getFornecedor: () => Promise<void>;
   updateProduct: (produto: IProduto) => Promise<void>;
-  createProduct: (produto: IProduto) => Promise<IProduto>;
+  createProduct: (produto: IProduto) => Promise<void>;
   deleteProduct: (produto: IProduto) => Promise<void>;
   updateFornecedor: (fornecedor: IFornecedor) => Promise<void>;
-  createFornecedor: (fornecedor: IFornecedor) => Promise<IFornecedor>;
+  createFornecedor: (fornecedor: IFornecedor) => Promise<void>;
   deleteFornecedor: (fornecedor: IFornecedor) => Promise<void>;
 }
