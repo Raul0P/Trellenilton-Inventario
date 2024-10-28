@@ -157,7 +157,7 @@ export default function FornecedorPage() {
                   name="endereco"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>endereco</FormLabel>
+                      <FormLabel>Endereço</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
@@ -170,7 +170,7 @@ export default function FornecedorPage() {
                   name="contato"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>contato</FormLabel>
+                      <FormLabel>Contato</FormLabel>
                       <FormControl>
                         <Input {...field} />
                       </FormControl>
