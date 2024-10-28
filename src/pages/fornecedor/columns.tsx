@@ -31,6 +31,24 @@ export const columns: ColumnDef<IFornecedor>[] = [
     header: 'Contato'
   },
   {
+    accessorKey: 'cnpj',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          CNPJ
+          {column.getIsSorted() === 'asc'
+            ? ' ↑'
+            : column.getIsSorted() === 'desc'
+              ? ' ↓'
+              : ''}
+        </Button>
+      );
+    }
+  },
+  {
     id: 'actions',
     cell: ({ row }) => {
       const product = row.original;
