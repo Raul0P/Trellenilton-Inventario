@@ -28,7 +28,8 @@ import { IFornecedor } from '@/interface/axios/response/IFornecedor';
 const fornecedorSchema = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),
   endereco: z.string().min(1, 'Endereço é obrigatório'),
-  contato: z.string().min(1, 'Contato é obrigatórip')
+  contato: z.string().min(1, 'Contato é obrigatórip'),
+  cnpj: z.string().min(1, 'CNPJ é obrigatório')
 });
 
 type FornecedorFormValues = z.infer<typeof fornecedorSchema>;
@@ -46,7 +47,8 @@ export default function FornecedorPage() {
     defaultValues: {
       name: '',
       endereco: '',
-      contato: ''
+      contato: '',
+      cnpj: ''
     }
   });
 
