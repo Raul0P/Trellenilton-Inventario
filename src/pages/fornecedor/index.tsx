@@ -24,12 +24,15 @@ import PageHead from '@/components/shared/page-head';
 import { Edit, Trash } from 'lucide-react';
 import { AuthContext } from '@/context/AuthContext';
 import { IFornecedor } from '@/interface/axios/response/IFornecedor';
+import validateCPFOrCNPJ from '@/hooks/use-validator';
 
 const fornecedorSchema = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),
   endereco: z.string().min(1, 'Endereço é obrigatório'),
   contato: z.string().min(1, 'Contato é obrigatórip'),
-  cnpj: z.string().min(1, 'CNPJ é obrigatório')
+  cnpj: z.string().min(1, 'CNPJ é obrigatório').refine(validateCPFOrCNPJ, {
+    message: 'CNPJ inválido'
+  })
 });
 
 type FornecedorFormValues = z.infer<typeof fornecedorSchema>;
