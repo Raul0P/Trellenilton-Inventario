@@ -37,6 +37,7 @@ type FornecedorFormValues = z.infer<typeof fornecedorSchema>;
 export default function FornecedorPage() {
   const { fornecedor, createFornecedor, updateFornecedor, deleteFornecedor } =
     useContext(AuthContext);
+  const [cnpj, setCnpj] = useState('');
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingFornecedor, setEditingFornecedor] =
