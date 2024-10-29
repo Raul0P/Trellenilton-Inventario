@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
@@ -12,9 +12,10 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useToast } from '@/components/ui/use-toast';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import PageHead from '@/components/shared/page-head';
+import { AuthContext } from '@/context/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 const userSchema = z
   .object({
@@ -29,26 +30,19 @@ const userSchema = z
     email: z.string().email({ message: 'Invalid email address' }).toLowerCase(),
     password: z
       .string()
-      .min(8, { message: 'Password must be at least 8 characters' })
-      .regex(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]+$/,
-        {
-          message:
-            'Password must contain at least one uppercase letter, one lowercase letter, one number and one special character'
-        }
-      ),
+      .min(6, { message: 'Password must be at least 6 characters' }),
     confirmPassword: z.string()
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
     path: ['confirmPassword']
   });
-
 type FormValues = z.infer<typeof userSchema>;
 
 export default function SignupPage() {
-  const { toast } = useToast();
+  const { createUsuario } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(userSchema),
@@ -63,17 +57,20 @@ export default function SignupPage() {
   const onSubmit = async (data: FormValues) => {
     try {
       setLoading(true);
-      // Here you'll add the API call to register the user
-      toast({
-        title: 'Success',
-        description: 'Account created successfully!'
-      });
+
+      const userData = {
+        name: data.username,
+        email: data.email,
+        password: data.password
+      };
+
+      const result = await createUsuario(userData);
+
+      if (result) {
+        navigate('/login');
+      }
     } catch (error) {
-      toast({
-        title: 'Error',
-        description: 'Something went wrong. Please try again.',
-        variant: 'destructive'
-      });
+      console.error(error);
     } finally {
       setLoading(false);
     }
