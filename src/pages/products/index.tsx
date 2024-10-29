@@ -7,6 +7,13 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
@@ -37,9 +44,8 @@ const productSchema = z.object({
 type ProductFormValues = z.infer<typeof productSchema>;
 
 export default function ProductsPage() {
-  const { produtos, updateProduct, createProduct, deleteProduct } =
+  const { produtos, updateProduct, createProduct, deleteProduct, fornecedor } =
     useContext(AuthContext);
-
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<IProduto | null>(null);
 
@@ -93,7 +99,7 @@ export default function ProductsPage() {
     form.reset();
   };
 
-  const updatedColumns = columns.map((col) => {
+  const updatedColumns = columns().map((col) => {
     if (col.id === 'actions') {
       return {
         ...col,
@@ -236,9 +242,28 @@ export default function ProductsPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Fornecedor</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
+                      <Select
+                        onValueChange={(value) =>
+                          field.onChange(parseInt(value))
+                        }
+                        value={field.value?.toString()}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecione um fornecedor" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {fornecedor.map((f) => (
+                            <SelectItem
+                              key={f.id}
+                              value={f.id?.toString() || ''}
+                            >
+                              {f.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}
