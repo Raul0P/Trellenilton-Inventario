@@ -1,6 +1,7 @@
 import {
   AlertTriangle,
   ArrowRight,
+  Box,
   Check,
   ChevronLeft,
   ChevronRight,
@@ -24,6 +25,7 @@ import {
   Settings,
   SunMedium,
   Trash,
+  Truck,
   Twitter,
   User,
   User2Icon,
@@ -36,6 +38,8 @@ export type Icon = LucideIcon;
 export const Icons = {
   dashboard: LayoutDashboardIcon,
   logo: Command,
+  fornecedor: Truck,
+  produtos: Box,
   login: LogIn,
   close: X,
   profile: User2Icon,

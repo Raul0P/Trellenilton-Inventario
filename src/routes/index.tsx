@@ -1,4 +1,5 @@
 import FormPage from '@/pages/form';
+import FornecedorPage from '@/pages/fornecedor';
 import NotFound from '@/pages/not-found';
 import { Suspense, lazy } from 'react';
 import { Navigate, Outlet, useRoutes } from 'react-router-dom';
@@ -37,16 +38,16 @@ export default function AppRouter() {
           element: <StudentPage />
         },
         {
-          path: 'student/details',
-          element: <StudentDetailPage />
-        },
-        {
           path: 'form',
           element: <FormPage />
         },
         {
           path: 'products',
           element: <ProductsPage />
+        },
+        {
+          path: 'fornecedor',
+          element: <FornecedorPage />
         }
       ]
     }
