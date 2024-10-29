@@ -24,13 +24,13 @@ import { Input } from '@/components/ui/input';
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
-  onAddProduct: () => void;
+  onAddFornecedor: () => void;
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-  onAddProduct
+  onAddFornecedor
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -49,8 +49,6 @@ export function DataTable<TData, TValue>({
       columnFilters
     }
   });
-  console.log(data);
-  console.log(table.getRowModel().rows);
 
   return (
     <div>
@@ -64,18 +62,8 @@ export function DataTable<TData, TValue>({
             }
             className="max-w-sm"
           />
-          <Input
-            placeholder="Filtrar por fornecedor..."
-            value={
-              (table.getColumn('supplier')?.getFilterValue() as string) ?? ''
-            }
-            onChange={(event) =>
-              table.getColumn('supplier')?.setFilterValue(event.target.value)
-            }
-            className="max-w-sm"
-          />
         </div>
-        <Button onClick={onAddProduct}>Adicionar Novo Produto</Button>
+        <Button onClick={onAddFornecedor}>Adicionar Novo Fornecedor</Button>
       </div>
       <div className="rounded-md border">
         <Table>
