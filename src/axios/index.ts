@@ -23,7 +23,7 @@ export const API_PROVIDER = {
     return data;
   },
   deleteProduto: async (produto: IProduto) => {
-    const res = await api.delete(`produtos/${produto.id}`);
+    const res = await api.delete(`produto/${produto.id}`);
 
     return res.data;
   },
