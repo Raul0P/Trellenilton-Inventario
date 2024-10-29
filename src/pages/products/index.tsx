@@ -48,6 +48,7 @@ export default function ProductsPage() {
     useContext(AuthContext);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<IProduto | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productSchema),
@@ -80,20 +81,27 @@ export default function ProductsPage() {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        form.setValue('image', reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      setSelectedFile(file);
     }
   };
 
-  const onSubmit = (values: ProductFormValues) => {
-    if (editingProduct) {
-      updateProduct({ ...editingProduct, ...values });
-    } else {
-      createProduct(values);
+  const onSubmit = async (values: ProductFormValues) => {
+    const formData = new FormData();
+    formData.append('name', values.name);
+    formData.append('description', values.description);
+    formData.append('price', values.price.toString());
+    formData.append('quantity', values.quantity.toString());
+    formData.append('fornecedorId', values.fornecedorId.toString());
+    if (selectedFile) {
+      formData.append('image', selectedFile);
     }
+
+    if (editingProduct) {
+      await updateProduct({ ...editingProduct, ...values });
+    } else {
+      await createProduct(formData);
+    }
+
     setIsDialogOpen(false);
     setEditingProduct(null);
     form.reset();

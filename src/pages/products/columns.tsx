@@ -4,18 +4,17 @@ import { useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 
 export const columns = () => {
-  const { fornecedor } = useContext(AuthContext);
-
+  const { fornecedor, produtos } = useContext(AuthContext);
+  console.log('produtos', produtos);
   return [
     {
       accessorKey: 'image',
       header: 'Imagem',
       cell: ({ row }) => (
         <img
-          src={row.original.image}
+          src={`http://localhost:3000${row.original.image}`}
           alt={row.original.name}
-          width={50}
-          height={50}
+          className="h-8 w-8 rounded-full object-cover"
         />
       )
     },
