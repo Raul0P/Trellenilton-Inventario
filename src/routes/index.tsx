@@ -1,3 +1,4 @@
+import SignupPage from '@/pages/auth/signup';
 import FormPage from '@/pages/form';
 import FornecedorPage from '@/pages/fornecedor';
 import NotFound from '@/pages/not-found';
@@ -55,6 +56,10 @@ export default function AppRouter() {
 
   const publicRoutes = [
     {
+      path: '/signup',
+      element: <SignupPage />
+    },
+    {
       path: '/login',
       element: <SignInPage />,
       index: true
@@ -68,7 +73,6 @@ export default function AppRouter() {
       element: <Navigate to="/404" replace />
     }
   ];
-
   const routes = useRoutes([...dashboardRoutes, ...publicRoutes]);
 
   return routes;
