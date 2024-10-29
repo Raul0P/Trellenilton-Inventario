@@ -53,6 +53,24 @@ export const columns: ColumnDef<IProduto>[] = [
     }
   },
   {
+    accessorKey: 'quantity',
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+        >
+          Quantidade
+          {column.getIsSorted() === 'asc'
+            ? ' ↑'
+            : column.getIsSorted() === 'desc'
+              ? ' ↓'
+              : ''}
+        </Button>
+      );
+    }
+  },
+  {
     accessorKey: 'description',
     header: 'Descrição'
   },
