@@ -2,6 +2,7 @@ import { API_PROVIDER } from '@/axios';
 import { useToast } from '@/components/ui/use-toast';
 import { IFornecedor } from '@/interface/axios/response/IFornecedor';
 import { IProduto } from '@/interface/axios/response/IProduto';
+import { IUsuario } from '@/interface/axios/response/IUsuario';
 import { IAuthContext, IAuthProviderProps } from '@/interface/context/Auth';
 import { createContext, useEffect, useState } from 'react';
 import { ToastAction } from '@/components/ui/toast';
@@ -11,6 +12,7 @@ export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [produtos, setProdutos] = useState<IProduto[]>([]);
   const [fornecedor, setFornecedor] = useState<IFornecedor[]>([]);
+  const [usuario, setUsuario] = useState<IUsuario | null>(null);
   const { toast } = useToast();
 
   async function getProdutos() {
@@ -237,6 +239,63 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   }
 
+  async function createUsuario(usuario: IUsuario) {
+    try {
+      const res = await API_PROVIDER.createUsuario(usuario);
+      if (res) {
+        toast({
+          title: 'Usuário criado com sucesso',
+          description: 'Usuário criado com sucesso'
+        });
+        return res;
+      } else {
+        toast({
+          title: 'Erro ao criar usuário',
+          description: 'Erro ao criar usuário',
+          action: (
+            <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+          )
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao criar usuário',
+        description: 'Erro ao criar usuário',
+        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+      });
+    }
+  }
+
+  async function loginUsuario(usuario: IUsuario) {
+    try {
+      const res = await API_PROVIDER.loginUsuario(usuario);
+      if (res) {
+        toast({
+          title: 'Login realizado com sucesso',
+          description: 'Bem vindo!'
+        });
+        setUsuario(res);
+        return res;
+      } else {
+        toast({
+          title: 'Erro ao realizar login',
+          description: 'Verifique suas credenciais',
+          action: (
+            <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+          )
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao realizar login',
+        description: 'Verifique suas credenciais',
+        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+      });
+    }
+  }
+
   useEffect(() => {
     getProdutos();
     getFornecedor();
@@ -247,6 +306,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       value={{
         produtos,
         fornecedor,
+        usuario,
         setProdutos,
         getProdutos,
         getFornecedor,
@@ -255,7 +315,9 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         deleteProduct,
         updateFornecedor,
         createFornecedor,
-        deleteFornecedor
+        deleteFornecedor,
+        createUsuario,
+        loginUsuario
       }}
     >
       {children}
