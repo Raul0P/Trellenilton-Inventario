@@ -58,7 +58,7 @@ export const API_PROVIDER = {
     return res.data;
   },
   createUsuario: async (usuario: IUsuario) => {
-    const res = await api.post('usuario', usuario);
+    const res = await api.post('user', usuario);
     const data: IUsuario = res.data;
 
     return data;
@@ -70,19 +70,19 @@ export const API_PROVIDER = {
     return data;
   },
   getUsuarioById: async (id: number) => {
-    const res = await api.get(`usuario/${id}`);
+    const res = await api.get(`user/${id}`);
     const data: IUsuario = res.data.data;
 
     return data;
   },
   updateUsuario: async (usuario: IUsuario) => {
-    const res = await api.patch(`usuario/${usuario.id}`, usuario);
+    const res = await api.patch(`user/${usuario.id}`, usuario);
     const data: IUsuario = res.data;
 
     return data;
   },
   deleteUsuario: async (usuario: IUsuario) => {
-    const res = await api.delete(`usuario/${usuario.id}`);
+    const res = await api.delete(`user/${usuario.id}`);
 
     return res.data;
   }

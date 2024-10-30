@@ -16,6 +16,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import PageHead from '@/components/shared/page-head';
 import { AuthContext } from '@/context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { UsuarioEnum } from '@/interface/axios/response/IUsuario';
 
 const userSchema = z
   .object({
@@ -61,7 +62,8 @@ export default function SignupPage() {
       const userData = {
         name: data.username,
         email: data.email,
-        password: data.password
+        password: data.password,
+        tipo: 'Usuario' as UsuarioEnum
       };
 
       const result = await createUsuario(userData);
