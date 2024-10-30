@@ -18,7 +18,6 @@ interface DashboardNavProps {
   setOpen?: Dispatch<SetStateAction<boolean>>;
   isMobileNav?: boolean;
 }
-
 export default function DashboardNav({
   items,
   setOpen,
@@ -31,12 +30,17 @@ export default function DashboardNav({
     return null;
   }
 
-  console.log('isActive', isMobileNav, isMinimized);
+  // Reorder items to put login first
+  const loginItem = items.find((item) => item.title.toLowerCase() === 'login');
+  const otherItems = items.filter(
+    (item) => item.title.toLowerCase() !== 'login'
+  );
+  const orderedItems = loginItem ? [loginItem, ...otherItems] : items;
 
   return (
     <nav className="grid items-start gap-2">
       <TooltipProvider>
-        {items.map((item, index) => {
+        {orderedItems.map((item, index) => {
           const Icon = Icons[item.icon || 'arrowRight'];
           return (
             item.href && (
@@ -56,7 +60,6 @@ export default function DashboardNav({
                     }}
                   >
                     <Icon className={`ml-2.5 size-5`} />
-
                     {isMobileNav || (!isMinimized && !isMobileNav) ? (
                       <span className="mr-2 truncate">{item.title}</span>
                     ) : (
