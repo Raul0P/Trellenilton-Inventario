@@ -44,8 +44,14 @@ const productSchema = z.object({
 type ProductFormValues = z.infer<typeof productSchema>;
 
 export default function ProductsPage() {
-  const { produtos, updateProduct, createProduct, deleteProduct, fornecedor } =
-    useContext(AuthContext);
+  const {
+    produtos,
+    updateProduct,
+    createProduct,
+    deleteProduct,
+    getProdutos,
+    fornecedor
+  } = useContext(AuthContext);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<IProduto | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -101,7 +107,7 @@ export default function ProductsPage() {
     } else {
       await createProduct(formData);
     }
-
+    await getProdutos();
     setIsDialogOpen(false);
     setEditingProduct(null);
     form.reset();
