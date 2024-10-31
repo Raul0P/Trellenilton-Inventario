@@ -21,4 +21,5 @@ export interface IAuthContext {
   deleteFornecedor: (fornecedor: IFornecedor) => Promise<void>;
   createUsuario: (usuario: IUsuario) => Promise<IUsuario | undefined>;
   login: (email: string, password: string) => Promise<IUsuario | undefined>;
+  logout: () => void;
 }

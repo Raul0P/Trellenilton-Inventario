@@ -54,6 +54,12 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   }
 
+  async function logout() {
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
+    setUsuario(undefined);
+  }
+
   async function getProdutos() {
     try {
       const res = await API_PROVIDER.getProdutos();
@@ -322,7 +328,8 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         createFornecedor,
         deleteFornecedor,
         createUsuario,
-        login
+        login,
+        logout
       }}
     >
       {children}
