@@ -2,6 +2,7 @@ import { IProduto } from '@/interface/axios/response/IProduto';
 import api from './api-config';
 import { IFornecedor } from '@/interface/axios/response/IFornecedor';
 import { IUsuario } from '@/interface/axios/response/IUsuario';
+import { ILoginResponse } from '@/interface/axios/response/ILoginResponse';
 
 export const API_PROVIDER = {
   getProdutos: async () => {
@@ -64,8 +65,8 @@ export const API_PROVIDER = {
     return data;
   },
   loginUsuario: async (email: string, password: string) => {
-    const res = await api.post('auth/login', { email, password });
-    const data: IUsuario = res.data;
+    const res = await api.post('user/login', { email, password });
+    const data: ILoginResponse = res.data.data;
 
     return data;
   },

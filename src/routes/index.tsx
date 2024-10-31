@@ -1,3 +1,4 @@
+import { ProtectedRoute } from '@/components/ProtectedRoute';
 import SignupPage from '@/pages/auth/signup';
 import FormPage from '@/pages/form';
 import FornecedorPage from '@/pages/fornecedor';
@@ -23,11 +24,13 @@ export default function AppRouter() {
     {
       path: '/',
       element: (
-        <DashboardLayout>
-          <Suspense>
-            <Outlet />
-          </Suspense>
-        </DashboardLayout>
+        <ProtectedRoute>
+          <DashboardLayout>
+            <Suspense>
+              <Outlet />
+            </Suspense>
+          </DashboardLayout>
+        </ProtectedRoute>
       ),
       children: [
         {

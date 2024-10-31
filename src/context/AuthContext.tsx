@@ -13,7 +13,15 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [produtos, setProdutos] = useState<IProduto[]>([]);
   const [fornecedor, setFornecedor] = useState<IFornecedor[]>([]);
   const [usuario, setUsuario] = useState<IUsuario | undefined>(undefined);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const { toast } = useToast();
+
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsAuthenticated(true);
+    }
+  }, []);
 
   async function login(
     email: string,
@@ -22,12 +30,10 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     try {
       const res = await API_PROVIDER.loginUsuario(email, password);
       if (res) {
-        toast({
-          title: 'Login realizado com sucesso',
-          description: 'Login realizado com sucesso'
-        });
-        setUsuario(res);
-        return res;
+        localStorage.setItem('token', res.token);
+        setIsAuthenticated(true);
+        setUsuario(res.user);
+        return res.user;
       } else {
         toast({
           title: 'Erro ao realizar login',

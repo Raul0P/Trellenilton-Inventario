@@ -8,10 +8,13 @@ import {
   FormMessage
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { ToastAction } from '@/components/ui/toast';
+import { useToast } from '@/components/ui/use-toast';
+import { AuthContext } from '@/context/AuthContext';
 import { cn } from '@/lib/utils';
 import { useRouter } from '@/routes/hooks';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import * as z from 'zod';
@@ -26,8 +29,10 @@ const formSchema = z.object({
 type UserFormValue = z.infer<typeof formSchema>;
 
 export default function UserAuthForm() {
+  const { login } = useContext(AuthContext);
   const router = useRouter();
   const [loading] = useState(false);
+  const { toast } = useToast();
   const defaultValues = {
     email: '',
     password: ''
@@ -38,9 +43,27 @@ export default function UserAuthForm() {
   });
 
   const onSubmit = async (data: UserFormValue) => {
-    console.log('data', data);
-    // Here you would typically send the email and password to your authentication service
-    router.push('/');
+    try {
+      const res = await login(data.email, data.password);
+      if (res) {
+        router.push('/');
+      } else {
+        toast({
+          title: 'Erro ao realizar login',
+          description: 'Verifique suas credenciais',
+          action: (
+            <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+          )
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao fazer login',
+        description: 'Erro ao fazer login',
+        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+      });
+    }
   };
 
   return (
