@@ -55,9 +55,18 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   }
 
   async function logout() {
-    localStorage.removeItem('token');
-    setIsAuthenticated(false);
-    setUsuario(undefined);
+    try {
+      localStorage.removeItem('token');
+      setIsAuthenticated(false);
+      setUsuario(undefined);
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao fazer logout',
+        description: 'Erro ao fazer logout',
+        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+      });
+    }
   }
 
   async function getProdutos() {
