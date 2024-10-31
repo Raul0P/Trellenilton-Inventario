@@ -153,7 +153,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   }
 
-  async function createProduct(produto: IProduto) {
+  async function createProduct(produto: FormData) {
     try {
       const res = await API_PROVIDER.createProduto(produto);
       if (res) {

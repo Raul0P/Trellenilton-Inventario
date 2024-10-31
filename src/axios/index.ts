@@ -12,20 +12,24 @@ export const API_PROVIDER = {
     return data;
   },
   updateProduto: async (produto: IProduto) => {
-    const res = await api.patch(`produtos/${produto.id}`, produto);
+    const res = await api.patch(`produto/${produto.id}`, produto);
     const data: IProduto = res.data;
 
     return data;
   },
 
-  createProduto: async (produto: IProduto) => {
-    const res = await api.post('produtos', produto);
+  createProduto: async (produto: FormData) => {
+    const res = await api.post('produto/', produto, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
     const data: IProduto = res.data;
 
     return data;
   },
   deleteProduto: async (produto: IProduto) => {
-    const res = await api.delete(`produtos/${produto.id}`);
+    const res = await api.delete(`produto/${produto.id}`);
 
     return res.data;
   },

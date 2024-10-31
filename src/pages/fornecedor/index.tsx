@@ -39,8 +39,13 @@ const fornecedorSchema = z.object({
 type FornecedorFormValues = z.infer<typeof fornecedorSchema>;
 
 export default function FornecedorPage() {
-  const { fornecedor, createFornecedor, updateFornecedor, deleteFornecedor } =
-    useContext(AuthContext);
+  const {
+    fornecedor,
+    createFornecedor,
+    updateFornecedor,
+    deleteFornecedor,
+    getFornecedor
+  } = useContext(AuthContext);
 
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingFornecedor, setEditingFornecedor] =
@@ -72,12 +77,13 @@ export default function FornecedorPage() {
     deleteFornecedor(fornecedor);
   };
 
-  const onSubmit = (values: FornecedorFormValues) => {
+  const onSubmit = async (values: FornecedorFormValues) => {
     if (editingFornecedor) {
-      updateFornecedor({ ...editingFornecedor, ...values });
+      await updateFornecedor({ ...editingFornecedor, ...values });
     } else {
-      createFornecedor(values);
+      await createFornecedor(values);
     }
+    await getFornecedor();
     setIsDialogOpen(false);
     setEditingFornecedor(null);
     form.reset();

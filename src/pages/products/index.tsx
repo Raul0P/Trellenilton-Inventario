@@ -7,6 +7,13 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useForm } from 'react-hook-form';
@@ -37,11 +44,17 @@ const productSchema = z.object({
 type ProductFormValues = z.infer<typeof productSchema>;
 
 export default function ProductsPage() {
-  const { produtos, updateProduct, createProduct, deleteProduct } =
-    useContext(AuthContext);
-
+  const {
+    produtos,
+    updateProduct,
+    createProduct,
+    deleteProduct,
+    getProdutos,
+    fornecedor
+  } = useContext(AuthContext);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<IProduto | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productSchema),
@@ -74,26 +87,33 @@ export default function ProductsPage() {
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        form.setValue('image', reader.result as string);
-      };
-      reader.readAsDataURL(file);
+      setSelectedFile(file);
     }
   };
 
-  const onSubmit = (values: ProductFormValues) => {
-    if (editingProduct) {
-      updateProduct({ ...editingProduct, ...values });
-    } else {
-      createProduct(values);
+  const onSubmit = async (values: ProductFormValues) => {
+    const formData = new FormData();
+    formData.append('name', values.name);
+    formData.append('description', values.description);
+    formData.append('price', values.price.toString());
+    formData.append('quantity', values.quantity.toString());
+    formData.append('fornecedorId', values.fornecedorId.toString());
+    if (selectedFile) {
+      formData.append('image', selectedFile);
     }
+
+    if (editingProduct) {
+      await updateProduct({ ...editingProduct, ...values });
+    } else {
+      await createProduct(formData);
+    }
+    await getProdutos();
     setIsDialogOpen(false);
     setEditingProduct(null);
     form.reset();
   };
 
-  const updatedColumns = columns.map((col) => {
+  const updatedColumns = columns().map((col) => {
     if (col.id === 'actions') {
       return {
         ...col,
@@ -200,6 +220,25 @@ export default function ProductsPage() {
                 />
                 <FormField
                   control={form.control}
+                  name="quantity"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>Quantidade</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="number"
+                          {...field}
+                          onChange={(e) =>
+                            field.onChange(parseFloat(e.target.value))
+                          }
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
                   name="description"
                   render={({ field }) => (
                     <FormItem>
@@ -217,9 +256,28 @@ export default function ProductsPage() {
                   render={({ field }) => (
                     <FormItem>
                       <FormLabel>Fornecedor</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
+                      <Select
+                        onValueChange={(value) =>
+                          field.onChange(parseInt(value))
+                        }
+                        value={field.value?.toString()}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecione um fornecedor" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {fornecedor.map((f) => (
+                            <SelectItem
+                              key={f.id}
+                              value={f.id?.toString() || ''}
+                            >
+                              {f.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                       <FormMessage />
                     </FormItem>
                   )}

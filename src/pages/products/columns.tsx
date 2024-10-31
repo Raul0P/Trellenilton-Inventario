@@ -1,102 +1,127 @@
-import { ColumnDef } from '@tanstack/react-table';
 import { Button } from '@/components/ui/button';
 import { Edit, Trash } from 'lucide-react';
-import { IProduto } from '@/interface/axios/response/IProduto';
+import { useContext } from 'react';
+import { AuthContext } from '@/context/AuthContext';
 
-export const columns: ColumnDef<IProduto>[] = [
-  {
-    accessorKey: 'image',
-    header: 'Imagem',
-    cell: ({ row }) => (
-      <img
-        src={row.original.image}
-        alt={row.original.name}
-        width={50}
-        height={50}
-      />
-    )
-  },
-  {
-    accessorKey: 'name',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Nome
-          {column.getIsSorted() === 'asc'
-            ? ' ↑'
-            : column.getIsSorted() === 'desc'
-              ? ' ↓'
-              : ''}
-        </Button>
-      );
-    }
-  },
-  {
-    accessorKey: 'price',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Preço
-          {column.getIsSorted() === 'asc'
-            ? ' ↑'
-            : column.getIsSorted() === 'desc'
-              ? ' ↓'
-              : ''}
-        </Button>
-      );
-    }
-  },
-  {
-    accessorKey: 'description',
-    header: 'Descrição'
-  },
-  {
-    accessorKey: 'supplier',
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-        >
-          Fornecedor
-          {column.getIsSorted() === 'asc'
-            ? ' ↑'
-            : column.getIsSorted() === 'desc'
-              ? ' ↓'
-              : ''}
-        </Button>
-      );
-    }
-  },
-  {
-    id: 'actions',
-    cell: ({ row }) => {
-      const product = row.original;
-
-      return (
-        <div className="flex items-center space-x-2">
+export const columns = () => {
+  const { fornecedor, produtos } = useContext(AuthContext);
+  console.log('produtos', produtos);
+  return [
+    {
+      accessorKey: 'image',
+      header: 'Imagem',
+      cell: ({ row }) => (
+        <img
+          src={`http://localhost:3000${row.original.image}`}
+          alt={row.original.name}
+          className="h-8 w-8 rounded-full object-cover"
+        />
+      )
+    },
+    {
+      accessorKey: 'name',
+      header: ({ column }) => {
+        return (
           <Button
             variant="ghost"
-            size="icon"
-            onClick={() => console.log('Edit', product)}
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
-            <Edit className="h-4 w-4" />
+            Nome
+            {column.getIsSorted() === 'asc'
+              ? ' ↑'
+              : column.getIsSorted() === 'desc'
+                ? ' ↓'
+                : ''}
           </Button>
+        );
+      }
+    },
+    {
+      accessorKey: 'price',
+      header: ({ column }) => {
+        return (
           <Button
             variant="ghost"
-            size="icon"
-            onClick={() => console.log('Delete', product)}
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
           >
-            <Trash className="h-4 w-4" />
+            Preço
+            {column.getIsSorted() === 'asc'
+              ? ' ↑'
+              : column.getIsSorted() === 'desc'
+                ? ' ↓'
+                : ''}
           </Button>
-        </div>
-      );
+        );
+      }
+    },
+    {
+      accessorKey: 'quantity',
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Quantidade
+            {column.getIsSorted() === 'asc'
+              ? ' ↑'
+              : column.getIsSorted() === 'desc'
+                ? ' ↓'
+                : ''}
+          </Button>
+        );
+      }
+    },
+    {
+      accessorKey: 'description',
+      header: 'Descrição'
+    },
+    {
+      id: 'supplier',
+      accessorFn: (row) => {
+        const supplier = fornecedor.find((f) => f.id === row.fornecedorId);
+        return supplier?.name || 'N/A';
+      },
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Fornecedor
+            {column.getIsSorted() === 'asc'
+              ? ' ↑'
+              : column.getIsSorted() === 'desc'
+                ? ' ↓'
+                : ''}
+          </Button>
+        );
+      }
+    },
+    {
+      id: 'actions',
+      cell: ({ row }) => {
+        const product = row.original;
+
+        return (
+          <div className="flex items-center space-x-2">
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => console.log('Edit', product)}
+            >
+              <Edit className="h-4 w-4" />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => console.log('Delete', product)}
+            >
+              <Trash className="h-4 w-4" />
+            </Button>
+          </div>
+        );
+      }
     }
-  }
-];
+  ];
+};
