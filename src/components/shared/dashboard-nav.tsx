@@ -2,7 +2,7 @@
 import { Icons } from '@/components/ui/icons';
 import { cn } from '@/lib/utils';
 import { NavItem } from '@/types';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useContext } from 'react';
 import { useSidebar } from '@/hooks/use-sidebar';
 import {
   Tooltip,
@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/tooltip';
 import { usePathname } from '@/routes/hooks';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '@/context/AuthContext';
 
 interface DashboardNavProps {
   items: NavItem[];
@@ -25,22 +26,16 @@ export default function DashboardNav({
 }: DashboardNavProps) {
   const path = usePathname();
   const { isMinimized } = useSidebar();
+  const { logout } = useContext(AuthContext);
 
   if (!items?.length) {
     return null;
   }
 
-  // Reorder items to put login first
-  const loginItem = items.find((item) => item.title.toLowerCase() === 'login');
-  const otherItems = items.filter(
-    (item) => item.title.toLowerCase() !== 'login'
-  );
-  const orderedItems = loginItem ? [loginItem, ...otherItems] : items;
-
   return (
     <nav className="grid items-start gap-2">
       <TooltipProvider>
-        {orderedItems.map((item, index) => {
+        {items.map((item, index) => {
           const Icon = Icons[item.icon || 'arrowRight'];
           return (
             item.href && (
@@ -79,6 +74,33 @@ export default function DashboardNav({
             )
           );
         })}
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Link
+              to="/"
+              className="flex items-center gap-2 overflow-hidden rounded-md py-2 text-sm font-medium hover:text-muted-foreground"
+              onClick={() => {
+                logout();
+                if (setOpen) setOpen(false);
+              }}
+            >
+              <Icons.login className="ml-2.5 size-5" />
+              {isMobileNav || (!isMinimized && !isMobileNav) ? (
+                <span className="mr-2 truncate">Logout</span>
+              ) : (
+                ''
+              )}
+            </Link>
+          </TooltipTrigger>
+          <TooltipContent
+            align="center"
+            side="right"
+            sideOffset={8}
+            className={!isMinimized ? 'hidden' : 'inline-block'}
+          >
+            Logout
+          </TooltipContent>
+        </Tooltip>
       </TooltipProvider>
     </nav>
   );

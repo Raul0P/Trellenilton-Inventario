@@ -1,5 +1,4 @@
 import { ProtectedRoute } from '@/components/ProtectedRoute';
-import SignupPage from '@/pages/auth/signup';
 import FormPage from '@/pages/form';
 import FornecedorPage from '@/pages/fornecedor';
 import NotFound from '@/pages/not-found';
@@ -9,12 +8,9 @@ import { Navigate, Outlet, useRoutes } from 'react-router-dom';
 const DashboardLayout = lazy(
   () => import('@/components/layout/dashboard-layout')
 );
-const SignInPage = lazy(() => import('@/pages/auth/signin'));
 const DashboardPage = lazy(() => import('@/pages/dashboard'));
 const StudentPage = lazy(() => import('@/pages/students'));
-// const StudentDetailPage = lazy(
-//   () => import('@/pages/students/StudentDetailPage')
-// );
+
 const ProductsPage = lazy(() => import('@/pages/products'));
 
 // ----------------------------------------------------------------------
@@ -58,15 +54,6 @@ export default function AppRouter() {
   ];
 
   const publicRoutes = [
-    {
-      path: '/signup',
-      element: <SignupPage />
-    },
-    {
-      path: '/login',
-      element: <SignInPage />,
-      index: true
-    },
     {
       path: '/404',
       element: <NotFound />
