@@ -74,33 +74,35 @@ export default function DashboardNav({
             )
           );
         })}
-        <Tooltip>
-          <TooltipTrigger asChild>
-            <Link
-              to="/"
-              className="flex items-center gap-2 overflow-hidden rounded-md py-2 text-sm font-medium hover:text-muted-foreground"
-              onClick={() => {
-                logout();
-                if (setOpen) setOpen(false);
-              }}
+        <div className="absolute bottom-0 mb-4 ">
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Link
+                to="/"
+                className="flex items-center gap-2 overflow-hidden rounded-md py-2 text-sm font-medium hover:text-muted-foreground"
+                onClick={() => {
+                  logout();
+                  if (setOpen) setOpen(false);
+                }}
+              >
+                <Icons.login className="ml-2.5 size-5" />
+                {isMobileNav || (!isMinimized && !isMobileNav) ? (
+                  <span className="mr-2 truncate">Logout</span>
+                ) : (
+                  ''
+                )}
+              </Link>
+            </TooltipTrigger>
+            <TooltipContent
+              align="center"
+              side="right"
+              sideOffset={8}
+              className={!isMinimized ? 'hidden' : 'inline-block'}
             >
-              <Icons.login className="ml-2.5 size-5" />
-              {isMobileNav || (!isMinimized && !isMobileNav) ? (
-                <span className="mr-2 truncate">Logout</span>
-              ) : (
-                ''
-              )}
-            </Link>
-          </TooltipTrigger>
-          <TooltipContent
-            align="center"
-            side="right"
-            sideOffset={8}
-            className={!isMinimized ? 'hidden' : 'inline-block'}
-          >
-            Logout
-          </TooltipContent>
-        </Tooltip>
+              Logout
+            </TooltipContent>
+          </Tooltip>
+        </div>
       </TooltipProvider>
     </nav>
   );
