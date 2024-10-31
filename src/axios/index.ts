@@ -63,8 +63,8 @@ export const API_PROVIDER = {
 
     return data;
   },
-  loginUsuario: async (usuario: IUsuario) => {
-    const res = await api.post('auth/login', usuario);
+  loginUsuario: async (email: string, password: string) => {
+    const res = await api.post('auth/login', { email, password });
     const data: IUsuario = res.data;
 
     return data;

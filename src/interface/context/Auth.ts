@@ -9,7 +9,7 @@ export interface IAuthProviderProps {
 export interface IAuthContext {
   produtos: IProduto[];
   fornecedor: IFornecedor[];
-  usuario: IUsuario | null;
+  usuario: IUsuario | undefined;
   setProdutos: (produtos: IProduto[]) => void;
   getProdutos: () => Promise<void>;
   getFornecedor: () => Promise<void>;
@@ -20,5 +20,5 @@ export interface IAuthContext {
   createFornecedor: (fornecedor: IFornecedor) => Promise<void>;
   deleteFornecedor: (fornecedor: IFornecedor) => Promise<void>;
   createUsuario: (usuario: IUsuario) => Promise<IUsuario | undefined>;
-  loginUsuario: (usuario: IUsuario) => Promise<IUsuario | undefined>;
+  login: (email: string, password: string) => Promise<IUsuario | undefined>;
 }

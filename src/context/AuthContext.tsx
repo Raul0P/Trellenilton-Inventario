@@ -12,8 +12,41 @@ export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [produtos, setProdutos] = useState<IProduto[]>([]);
   const [fornecedor, setFornecedor] = useState<IFornecedor[]>([]);
-  const [usuario, setUsuario] = useState<IUsuario | null>(null);
+  const [usuario, setUsuario] = useState<IUsuario | undefined>(undefined);
   const { toast } = useToast();
+
+  async function login(
+    email: string,
+    password: string
+  ): Promise<IUsuario | undefined> {
+    try {
+      const res = await API_PROVIDER.loginUsuario(email, password);
+      if (res) {
+        toast({
+          title: 'Login realizado com sucesso',
+          description: 'Login realizado com sucesso'
+        });
+        setUsuario(res);
+        return res;
+      } else {
+        toast({
+          title: 'Erro ao realizar login',
+          description: 'Verifique suas credenciais',
+          action: (
+            <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+          )
+        });
+      }
+      return {} as IUsuario;
+    } catch (err) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao fazer login',
+        description: 'Erro ao fazer login',
+        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+      });
+    }
+  }
 
   async function getProdutos() {
     try {
@@ -239,7 +272,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   }
 
-  async function createUsuario(usuario: IUsuario) {
+  async function createUsuario(usuario: IUsuario): Promise<IUsuario> {
     try {
       const res = await API_PROVIDER.createUsuario(usuario);
       if (res) {
@@ -249,13 +282,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         });
         return res;
       } else {
-        toast({
-          title: 'Erro ao criar usuário',
-          description: 'Erro ao criar usuário',
-          action: (
-            <ToastAction altText="Try again">Tentar Novamente</ToastAction>
-          )
-        });
+        throw new Error('Erro ao criar usuário');
       }
     } catch (error) {
       toast({
@@ -264,35 +291,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         description: 'Erro ao criar usuário',
         action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
       });
-    }
-  }
-
-  async function loginUsuario(usuario: IUsuario) {
-    try {
-      const res = await API_PROVIDER.loginUsuario(usuario);
-      if (res) {
-        toast({
-          title: 'Login realizado com sucesso',
-          description: 'Bem vindo!'
-        });
-        setUsuario(res);
-        return res;
-      } else {
-        toast({
-          title: 'Erro ao realizar login',
-          description: 'Verifique suas credenciais',
-          action: (
-            <ToastAction altText="Try again">Tentar Novamente</ToastAction>
-          )
-        });
-      }
-    } catch (error) {
-      toast({
-        variant: 'destructive',
-        title: 'Erro ao realizar login',
-        description: 'Verifique suas credenciais',
-        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
-      });
+      throw error;
     }
   }
 
@@ -317,7 +316,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         createFornecedor,
         deleteFornecedor,
         createUsuario,
-        loginUsuario
+        login
       }}
     >
       {children}
