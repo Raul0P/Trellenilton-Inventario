@@ -1,4 +1,5 @@
 import { ProtectedRoute } from '@/components/ProtectedRoute';
+import SignupPage from '@/pages/auth/signup';
 import FormPage from '@/pages/form';
 import FornecedorPage from '@/pages/fornecedor';
 import NotFound from '@/pages/not-found';
@@ -8,6 +9,7 @@ import { Navigate, Outlet, useRoutes } from 'react-router-dom';
 const DashboardLayout = lazy(
   () => import('@/components/layout/dashboard-layout')
 );
+const SignInPage = lazy(() => import('@/pages/auth/signin'));
 const DashboardPage = lazy(() => import('@/pages/dashboard'));
 const StudentPage = lazy(() => import('@/pages/students'));
 
@@ -61,6 +63,15 @@ export default function AppRouter() {
     {
       path: '*',
       element: <Navigate to="/404" replace />
+    },
+    {
+      path: '/signup',
+      element: <SignupPage />
+    },
+    {
+      path: '/login',
+      element: <SignInPage />,
+      index: true
     }
   ];
   const routes = useRoutes([...dashboardRoutes, ...publicRoutes]);
