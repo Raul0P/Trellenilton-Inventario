@@ -22,20 +22,23 @@ const userSchema = z
   .object({
     username: z
       .string()
-      .min(5, { message: 'Username must be at least 5 characters' })
-      .max(50, { message: 'Username cannot exceed 50 characters' })
+      .min(5, { message: 'Nome de usuário deve ter pelo menos 5 caracteres' })
+      .max(50, { message: 'Nome de usuário deve ter no máximo 50 caracteres' })
       .regex(/^[a-zA-Z0-9_-]+$/, {
         message:
-          'Username can only contain letters, numbers, underscores and hyphens'
+          'Nome de usuário deve conter apenas letras, números, hífens e sublinhados'
       }),
-    email: z.string().email({ message: 'Invalid email address' }).toLowerCase(),
+    email: z
+      .string()
+      .email({ message: 'Endereço de e-mail inválido' })
+      .toLowerCase(),
     password: z
       .string()
-      .min(6, { message: 'Password must be at least 6 characters' }),
+      .min(6, { message: 'Senha deve ter ao menos 6 carateres' }),
     confirmPassword: z.string()
   })
   .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
+    message: 'Senhas não conferem',
     path: ['confirmPassword']
   });
 type FormValues = z.infer<typeof userSchema>;
@@ -63,7 +66,7 @@ export default function SignupPage() {
         name: data.username,
         email: data.email,
         password: data.password,
-        tipo: 'Usuario' as UsuarioEnum
+        tipo: 'Usuário' as UsuarioEnum
       };
 
       const result = await createUsuario(userData);
@@ -83,7 +86,7 @@ export default function SignupPage() {
       <PageHead title="Crie sua conta" />
       <Card className="w-[400px]">
         <CardHeader>
-          <CardTitle className="text-center text-2xl">Create Account</CardTitle>
+          <CardTitle className="text-center text-2xl">Criar Conta</CardTitle>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -93,9 +96,12 @@ export default function SignupPage() {
                 name="username"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Username</FormLabel>
+                    <FormLabel>Nome de usuário</FormLabel>
                     <FormControl>
-                      <Input placeholder="Enter username" {...field} />
+                      <Input
+                        placeholder="Digite o nome do usuário"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -107,11 +113,11 @@ export default function SignupPage() {
                 name="email"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Email</FormLabel>
+                    <FormLabel>E-mail</FormLabel>
                     <FormControl>
                       <Input
                         type="email"
-                        placeholder="Enter email"
+                        placeholder="Digite seu e-mail"
                         {...field}
                       />
                     </FormControl>
@@ -125,11 +131,11 @@ export default function SignupPage() {
                 name="password"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Password</FormLabel>
+                    <FormLabel>Senha</FormLabel>
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="Enter password"
+                        placeholder="Digite sua senha"
                         {...field}
                       />
                     </FormControl>
@@ -147,7 +153,7 @@ export default function SignupPage() {
                     <FormControl>
                       <Input
                         type="password"
-                        placeholder="Confirm password"
+                        placeholder="Confirme sua senha"
                         {...field}
                       />
                     </FormControl>
@@ -157,7 +163,7 @@ export default function SignupPage() {
               />
 
               <Button type="submit" className="w-full" disabled={loading}>
-                {loading ? 'Creating account...' : 'Sign Up'}
+                {loading ? 'Criando conta...' : 'Registre-se'}
               </Button>
             </form>
           </Form>

@@ -20,10 +20,10 @@ import { Link } from 'react-router-dom';
 import * as z from 'zod';
 
 const formSchema = z.object({
-  email: z.string().email({ message: 'Enter a valid email address' }),
+  email: z.string().email({ message: 'Digite um e-mail válido' }),
   password: z
     .string()
-    .min(6, { message: 'Password must be at least 6 characters' })
+    .min(6, { message: 'Senha deve ter ao menos 6 carateres' })
 });
 
 type UserFormValue = z.infer<typeof formSchema>;
@@ -78,11 +78,11 @@ export default function UserAuthForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>E-mail</FormLabel>
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder="Enter your email..."
+                    placeholder="Digite seu e-mail..."
                     disabled={loading}
                     {...field}
                   />
@@ -100,7 +100,7 @@ export default function UserAuthForm() {
                 <FormControl>
                   <Input
                     type="password"
-                    placeholder="Enter your password..."
+                    placeholder="Digite sua senha..."
                     disabled={loading}
                     {...field}
                   />
