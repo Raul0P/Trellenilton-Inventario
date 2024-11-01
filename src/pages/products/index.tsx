@@ -55,19 +55,17 @@ export default function ProductsPage() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingProduct, setEditingProduct] = useState<IProduto | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productSchema),
     defaultValues: {
       name: '',
-      price: 0,
+      price: undefined,
       description: '',
-      fornecedorId: 0,
+      fornecedorId: undefined,
       image: '',
-      quantity: 0
+      quantity: undefined
     }
   });
-
   const handleAddProduct = () => {
     setEditingProduct(null);
     form.reset();
@@ -193,7 +191,10 @@ export default function ProductsPage() {
                     <FormItem>
                       <FormLabel>Nome</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input
+                          placeholder="Digite o nome do produto"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -209,6 +210,7 @@ export default function ProductsPage() {
                         <Input
                           type="number"
                           {...field}
+                          placeholder="Digite o preço"
                           onChange={(e) =>
                             field.onChange(parseFloat(e.target.value))
                           }
@@ -228,6 +230,7 @@ export default function ProductsPage() {
                         <Input
                           type="number"
                           {...field}
+                          placeholder="Digite a quantidade"
                           onChange={(e) =>
                             field.onChange(parseFloat(e.target.value))
                           }
@@ -244,7 +247,10 @@ export default function ProductsPage() {
                     <FormItem>
                       <FormLabel>Descrição</FormLabel>
                       <FormControl>
-                        <Input {...field} />
+                        <Input
+                          placeholder="Digite a descrição do produto"
+                          {...field}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
