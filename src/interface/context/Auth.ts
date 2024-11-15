@@ -1,5 +1,6 @@
 import { IFornecedor } from '../axios/response/IFornecedor';
 import { IProduto } from '../axios/response/IProduto';
+import { ITransacao } from '../axios/response/ITransacao';
 import { IUsuario } from '../axios/response/IUsuario';
 
 export interface IAuthProviderProps {
@@ -7,9 +8,13 @@ export interface IAuthProviderProps {
 }
 
 export interface IAuthContext {
+  transacoes: ITransacao[];
   produtos: IProduto[];
   fornecedor: IFornecedor[];
   usuario: IUsuario | undefined;
+  getTransacaos: () => Promise<void>;
+  createTransacao: (transacao: ITransacao) => Promise<void>;
+  deleteTransacao: (transacao: ITransacao) => Promise<void>;
   setProdutos: (produtos: IProduto[]) => void;
   getProdutos: () => Promise<void>;
   getFornecedor: () => Promise<void>;

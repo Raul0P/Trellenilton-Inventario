@@ -3,6 +3,7 @@ import SignupPage from '@/pages/auth/signup';
 import FormPage from '@/pages/form';
 import FornecedorPage from '@/pages/fornecedor';
 import NotFound from '@/pages/not-found';
+import TransactionsPage from '@/pages/transactions';
 import { Suspense, lazy } from 'react';
 import { Navigate, Outlet, useRoutes } from 'react-router-dom';
 
@@ -50,6 +51,10 @@ export default function AppRouter() {
         {
           path: 'fornecedor',
           element: <FornecedorPage />
+        },
+        {
+          path: 'transactions',
+          element: <TransactionsPage />
         }
       ]
     }
