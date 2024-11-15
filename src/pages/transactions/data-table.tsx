@@ -58,7 +58,7 @@ export function DataTable<TData, TValue>({
             onChange={(e) =>
               setDateRange({ ...dateRange, start: e.target.value })
             }
-            className="max-w-sm [&::-webkit-calendar-picker-indicator]:invert-[0.65] [&::-webkit-calendar-picker-indicator]:filter"
+            className="max-w-sm"
             placeholder="Data inicial"
           />
           <Input
@@ -67,7 +67,7 @@ export function DataTable<TData, TValue>({
             onChange={(e) =>
               setDateRange({ ...dateRange, end: e.target.value })
             }
-            className="max-w-sm [&::-webkit-calendar-picker-indicator]:invert-[0.65] [&::-webkit-calendar-picker-indicator]:filter"
+            className="max-w-sm"
             placeholder="Data final"
           />
           <Input
