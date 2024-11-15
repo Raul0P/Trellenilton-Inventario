@@ -7,7 +7,7 @@ import { IOrder } from '@/interface/axios/response/IOrders';
 import { ICliente } from '@/interface/axios/response/ICliente';
 import { IOrderItem } from '@/interface/axios/response/IOrderItem';
 import { IItemPedido } from '@/interface/axios/response/IITemPedido';
-import { get } from 'http';
+import { ITransacao } from '@/interface/axios/response/ITransacao';
 
 export const API_PROVIDER = {
   getProdutos: async () => {
@@ -204,6 +204,33 @@ export const API_PROVIDER = {
   },
   deleteItemPedido: async (itemPedido: IItemPedido) => {
     const res = await api.delete(`itempedido/${itemPedido.pedidoId}`);
+
+    return res.data;
+  },
+  getTransacaos: async () => {
+    const res = await api.get('transacao');
+    const data: ITransacao[] = res.data.data;
+
+    return data;
+  },
+  getTransacaoById: async (id: number) => {
+    const res = await api.get(`transacao/${id}`);
+    const data: ITransacao = res.data.data;
+
+    return data;
+  },
+  createTransacao: async (transacao: ITransacao) => {
+    const res = await api.post('transacao/', transacao, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
+    const data: ITransacao = res.data;
+
+    return data;
+  },
+  deleteTransacao: async (transacao: ITransacao) => {
+    const res = await api.delete(`transacao/${transacao.id}`);
 
     return res.data;
   }

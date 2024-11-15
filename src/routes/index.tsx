@@ -5,6 +5,7 @@ import FormPage from '@/pages/form';
 import FornecedorPage from '@/pages/fornecedor';
 import NotFound from '@/pages/not-found';
 import OrdersPage from '@/pages/orders';
+import TransactionsPage from '@/pages/transactions';
 import { Suspense, lazy } from 'react';
 import { Navigate, Outlet, useRoutes } from 'react-router-dom';
 
@@ -60,6 +61,10 @@ export default function AppRouter() {
         {
           path: 'pedido',
           element: <OrdersPage />
+        },
+        {
+          path: 'transactions',
+          element: <TransactionsPage />
         }
       ]
     }

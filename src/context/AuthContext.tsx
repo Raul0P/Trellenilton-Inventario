@@ -9,6 +9,7 @@ import { createContext, useEffect, useState } from 'react';
 import { ToastAction } from '@/components/ui/toast';
 import { IOrder } from '@/interface/axios/response/IOrders';
 import { IOrderItem } from '@/interface/axios/response/IOrderItem';
+import { ITransacao } from '@/interface/axios/response/ITransacao';
 
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
@@ -17,8 +18,9 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [fornecedor, setFornecedor] = useState<IFornecedor[]>([]);
   const [cliente, setCliente] = useState<ICliente[]>([]);
   const [usuario, setUsuario] = useState<IUsuario | undefined>(undefined);
-  const [order, setOrders] = useState<IOrder[]>([]);
+  const [transacoes, setTransacoes] = useState<ITransacao[]>([]);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
+  const [order, setOrders] = useState<IOrder[]>([]);
   const { toast } = useToast();
 
   useEffect(() => {
@@ -361,10 +363,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       } else {
         toast({
           title: 'Erro ao carregar pedidos',
-          description: 'Erro ao carregar pedidos',
-          action: (
-            <ToastAction altText="Try again">Tentar Novamente</ToastAction>
-          )
+          description: 'Erro ao carregar pedidos'
         });
       }
     } catch (error) {
@@ -581,11 +580,72 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   }
 
+  async function getTransacaos() {
+    try {
+      const res = await API_PROVIDER.getTransacaos();
+      if (res) {
+        toast({
+          title: 'Transações carregadas com sucesso',
+          description: 'Transações carregadas com sucesso'
+        });
+        setTransacoes(res);
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao carregar transações',
+        description: 'Erro ao carregar transações',
+        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+      });
+    }
+  }
+
+  async function createTransacao(transacao: ITransacao) {
+    try {
+      const res = await API_PROVIDER.createTransacao(transacao);
+      if (res) {
+        toast({
+          title: 'Transação criada com sucesso',
+          description: 'Transação criada com sucesso'
+        });
+        setTransacoes([...transacoes, res]);
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao criar transação',
+        description: 'Erro ao criar transação',
+        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+      });
+    }
+  }
+
+  async function deleteTransacao(transacao: ITransacao) {
+    try {
+      const res = await API_PROVIDER.deleteTransacao(transacao);
+      if (res) {
+        toast({
+          title: 'Transação deletada com sucesso',
+          description: 'Transação deletada com sucesso'
+        });
+        setTransacoes(transacoes.filter((t) => t.id !== transacao.id));
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao deletar transação',
+        description: 'Erro ao deletar transação',
+        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+      });
+    }
+  }
+
   useEffect(() => {
     getProdutos();
     getFornecedor();
     getCliente();
     getOrders();
+    getTransacaos();
   }, []);
 
   return (
@@ -596,11 +656,15 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         cliente,
         usuario,
         order,
+        transacoes,
         setProdutos,
         getProdutos,
         getFornecedor,
         updateProduct,
         createProduct,
+        getTransacaos,
+        createTransacao,
+        deleteTransacao,
         deleteProduct,
         updateFornecedor,
         createFornecedor,
