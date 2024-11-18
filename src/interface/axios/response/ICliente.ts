@@ -4,5 +4,4 @@ export interface ICliente {
   endereco: string;
   cnpj: string;
   contato: string;
-  archived?: boolean;
 }
