@@ -1,5 +1,6 @@
 import { ProtectedRoute } from '@/components/ProtectedRoute';
 import SignupPage from '@/pages/auth/signup';
+import ClientesPage from '@/pages/cliente';
 import FormPage from '@/pages/form';
 import FornecedorPage from '@/pages/fornecedor';
 import NotFound from '@/pages/not-found';
@@ -50,6 +51,10 @@ export default function AppRouter() {
         {
           path: 'fornecedor',
           element: <FornecedorPage />
+        },
+        {
+          path: 'cliente',
+          element: <ClientesPage />
         }
       ]
     }
