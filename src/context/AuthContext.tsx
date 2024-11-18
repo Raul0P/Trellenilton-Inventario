@@ -1,6 +1,7 @@
 import { API_PROVIDER } from '@/axios';
 import { useToast } from '@/components/ui/use-toast';
 import { IFornecedor } from '@/interface/axios/response/IFornecedor';
+import { ICliente } from '@/interface/axios/response/ICliente';
 import { IProduto } from '@/interface/axios/response/IProduto';
 import { IUsuario } from '@/interface/axios/response/IUsuario';
 import { IAuthContext, IAuthProviderProps } from '@/interface/context/Auth';
@@ -12,6 +13,7 @@ export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [produtos, setProdutos] = useState<IProduto[]>([]);
   const [fornecedor, setFornecedor] = useState<IFornecedor[]>([]);
+  const [cliente, setCliente] = useState<ICliente[]>([]);
   const [usuario, setUsuario] = useState<IUsuario | undefined>(undefined);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const { toast } = useToast();
@@ -120,6 +122,34 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         variant: 'destructive',
         title: 'Erro ao carregar fornecedores',
         description: 'Erro ao carregar fornecedores',
+        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+      });
+    }
+  }
+
+  async function getCliente() {
+    try {
+      const res = await API_PROVIDER.getCliente();
+      if (res) {
+        toast({
+          title: 'Clientes carregados com sucesso',
+          description: 'Clientes carregados com sucesso'
+        });
+        setCliente(res);
+      } else {
+        toast({
+          title: 'Erro ao carregar clientes',
+          description: 'Erro ao carregar clientes',
+          action: (
+            <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+          )
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao carregar clientes',
+        description: 'Erro ao carregar clientes',
         action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
       });
     }
@@ -316,9 +346,94 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   }
 
+  async function updateCliente(cliente: ICliente) {
+    try {
+      const res = await API_PROVIDER.updateCliente(cliente);
+      if (res) {
+        toast({
+          title: 'Cliente atualizado com sucesso',
+          description: 'Cliente atualizado com sucesso'
+        });
+        getCliente();
+      } else {
+        toast({
+          title: 'Erro ao atualizar cliente',
+          description: 'Erro ao atualizar cliente',
+          action: (
+            <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+          )
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao atualizar cliente',
+        description: 'Erro ao atualizar cliente',
+        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+      });
+    }
+  }
+
+  async function createCliente(clientes: ICliente) {
+    try {
+      const res = await API_PROVIDER.createCliente(clientes);
+      if (res) {
+        toast({
+          title: 'Cliente criado com sucesso',
+          description: 'Cliente criado com sucesso'
+        });
+        setCliente([...cliente, res]);
+      } else {
+        toast({
+          title: 'Erro ao criar cliente',
+          description: 'Erro ao criar cliente',
+          action: (
+            <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+          )
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao criar cliente',
+        description: 'Erro ao criar cliente',
+        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+      });
+    }
+  }
+
+  async function deleteCliente(clientes: ICliente) {
+    try {
+      const res = await API_PROVIDER.deleteCliente(clientes);
+      if (res) {
+        toast({
+          title: 'Cliente deletado com sucesso',
+          description: 'Cliente deletado com sucesso'
+        });
+        setCliente(cliente.filter((c) => c.id !== clientes.id));
+      } else {
+        toast({
+          title: 'Erro ao deletar cliente',
+          description: 'Erro ao deletar cliente',
+          action: (
+            <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+          )
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao deletar cliente',
+        description: 'Erro ao deletar cliente',
+        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+      });
+    }
+  }
+
   useEffect(() => {
     getProdutos();
     getFornecedor();
+    getCliente();
   }, []);
 
   return (
@@ -326,6 +441,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
       value={{
         produtos,
         fornecedor,
+        cliente,
         usuario,
         setProdutos,
         getProdutos,
@@ -337,6 +453,10 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         createFornecedor,
         deleteFornecedor,
         createUsuario,
+        getCliente,
+        updateCliente,
+        createCliente,
+        deleteCliente,
         login,
         logout
       }}
