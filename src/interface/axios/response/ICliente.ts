@@ -2,6 +2,6 @@ export interface ICliente {
   id?: number;
   name: string;
   endereco: string;
-  cnpj: string;
+  cpf_cnpj: string;
   contato: string;
 }
