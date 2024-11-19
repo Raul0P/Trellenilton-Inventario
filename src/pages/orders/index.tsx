@@ -34,7 +34,7 @@ const ordersSchema = z.object({
     invalid_type_error: 'Cliente deve ser um número'
   }),
   status: z.nativeEnum(OrderEnum),
-  total: z.number().optional(),
+  total: z.number(),
   itens: z
     .array(
       z.object({
@@ -45,6 +45,7 @@ const ordersSchema = z.object({
     )
     .default([])
 });
+
 type OrdersFormValues = z.infer<typeof ordersSchema>;
 
 export default function OrdersPage() {
@@ -68,6 +69,7 @@ export default function OrdersPage() {
       itens: []
     }
   });
+
   const handleAddOrder = () => {
     setEditingOrder(null);
     form.reset();
