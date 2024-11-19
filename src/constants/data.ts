@@ -21,7 +21,7 @@ export const navItems: NavItem[] = [
   },
   {
     title: 'Clientes',
-    href: '/clientes',
+    href: '/cliente',
     icon: 'employee',
     label: 'Clientes'
   }
