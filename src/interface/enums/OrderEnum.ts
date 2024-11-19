@@ -1,4 +1,4 @@
 export enum OrderEnum {
-  Pendente = 'Pendente',
-  Concluido = 'Concluído'
+  PENDENTE = 'Pendente',
+  CONCLUIDO = 'Concluído'
 }
