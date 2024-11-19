@@ -3,6 +3,7 @@ import api from './api-config';
 import { IFornecedor } from '@/interface/axios/response/IFornecedor';
 import { IUsuario } from '@/interface/axios/response/IUsuario';
 import { ILoginResponse } from '@/interface/axios/response/ILoginResponse';
+import { IOrder } from '@/interface/axios/response/IOrders';
 
 export const API_PROVIDER = {
   getProdutos: async () => {
@@ -88,6 +89,35 @@ export const API_PROVIDER = {
   },
   deleteUsuario: async (usuario: IUsuario) => {
     const res = await api.delete(`user/${usuario.id}`);
+
+    return res.data;
+  },
+  createOrder: async (order: IOrder) => {
+    const res = await api.post('pedido', order);
+    const data: IOrder = res.data;
+
+    return data;
+  },
+  getOrderById: async (id: number) => {
+    const res = await api.get(`pedido/${id}`);
+    const data: IOrder = res.data.data;
+
+    return data;
+  },
+  getOrderByIdCosutmer: async (id: number) => {
+    const res = await api.get(`pedido/cliente/${id}`);
+    const data: IOrder[] = res.data.data;
+
+    return data;
+  },
+  updateOrder: async (order: IOrder) => {
+    const res = await api.patch(`pedido/${order.id}`, order);
+    const data: IOrder = res.data;
+
+    return data;
+  },
+  deleteOrder: async (order: IOrder) => {
+    const res = await api.delete(`pedido/${order.id}`);
 
     return res.data;
   }
