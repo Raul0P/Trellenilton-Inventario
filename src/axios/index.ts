@@ -106,7 +106,7 @@ export const API_PROVIDER = {
   },
   createCliente: async (cliente: ICliente) => {
     const res = await api.post('cliente', cliente);
-    const data: ICliente[] = res.data;
+    const data: ICliente = res.data;
 
     return data;
   },

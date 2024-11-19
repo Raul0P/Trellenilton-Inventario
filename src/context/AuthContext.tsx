@@ -382,7 +382,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
           title: 'Cliente criado com sucesso',
           description: 'Cliente criado com sucesso'
         });
-        setCliente([...cliente, res]);
+        setCliente([res]);
       } else {
         toast({
           title: 'Erro ao criar cliente',
