@@ -78,7 +78,7 @@ export default function ClientesPage() {
     if (editingCliente) {
       await updateCliente({ ...editingCliente, ...values });
     } else {
-      await createCliente(values);
+      await createCliente({ ...values, archived: false });
     }
     await getCliente();
     setIsDialogOpen(false);
@@ -126,7 +126,7 @@ export default function ClientesPage() {
         <DataTable
           columns={updatedColumns}
           data={cliente}
-          onAddCliente={handleAddCliente} // Passa a função para adicionar cliente
+          onAddCliente={handleAddCliente}
         />
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogContent>
