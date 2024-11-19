@@ -62,6 +62,34 @@ export function DataTable<TData, TValue>({
             }
             className="max-w-sm"
           />
+          <Input
+            placeholder="Filtrar por preço..."
+            value={(table.getColumn('price')?.getFilterValue() as string) ?? ''}
+            onChange={(event) =>
+              table.getColumn('price')?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+          <Input
+            placeholder="Filtrar por quantidade..."
+            value={
+              (table.getColumn('quantity')?.getFilterValue() as string) ?? ''
+            }
+            onChange={(event) =>
+              table.getColumn('quantity')?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
+          <Input
+            placeholder="Filtrar por fornecedor..."
+            value={
+              (table.getColumn('supplier')?.getFilterValue() as string) ?? ''
+            }
+            onChange={(event) =>
+              table.getColumn('supplier')?.setFilterValue(event.target.value)
+            }
+            className="max-w-sm"
+          />
         </div>
         <Button onClick={ondAddOrder}>Criar novo pedido</Button>
       </div>
