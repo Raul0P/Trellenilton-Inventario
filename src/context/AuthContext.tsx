@@ -6,6 +6,7 @@ import { IUsuario } from '@/interface/axios/response/IUsuario';
 import { IAuthContext, IAuthProviderProps } from '@/interface/context/Auth';
 import { createContext, useEffect, useState } from 'react';
 import { ToastAction } from '@/components/ui/toast';
+import { IOrder } from '@/interface/axios/response/IOrders';
 
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
@@ -13,6 +14,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [produtos, setProdutos] = useState<IProduto[]>([]);
   const [fornecedor, setFornecedor] = useState<IFornecedor[]>([]);
   const [usuario, setUsuario] = useState<IUsuario | undefined>(undefined);
+  const [order, setOrders] = useState<IOrder[]>([]);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const { toast } = useToast();
 
@@ -316,6 +318,146 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   }
 
+  async function getOrders() {
+    try {
+      const res = await API_PROVIDER.getOrders();
+      if (res) {
+        toast({
+          title: 'Pedidos carregados com sucesso',
+          description: 'Pedidos carregados com sucesso'
+        });
+        setOrders(res);
+      } else {
+        toast({
+          title: 'Erro ao carregar pedidos',
+          description: 'Erro ao carregar pedidos',
+          action: (
+            <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+          )
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao carregar pedidos',
+        description: 'Erro ao carregar pedidos',
+        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+      });
+    }
+  }
+
+  async function createOrder(newOrder: IOrder) {
+    try {
+      const res = await API_PROVIDER.createOrder(newOrder);
+      if (res) {
+        toast({
+          title: 'Pedido criado com sucesso',
+          description: 'Pedido criado com sucesso'
+        });
+        setOrders([...order, res]);
+      } else {
+        toast({
+          title: 'Erro ao criar pedido',
+          description: 'Erro ao criar pedido',
+          action: (
+            <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+          )
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao criar pedido',
+        description: 'Erro ao criar pedido',
+        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+      });
+    }
+  }
+
+  async function updateOrder(order: IOrder) {
+    try {
+      const res = await API_PROVIDER.updateOrder(order);
+      if (res) {
+        toast({
+          title: 'Pedido atualizado com sucesso',
+          description: 'Pedido atualizado com sucesso'
+        });
+        getOrders();
+      } else {
+        toast({
+          title: 'Erro ao atualizar pedido',
+          description: 'Erro ao atualizar pedido',
+          action: (
+            <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+          )
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao atualizar pedido',
+        description: 'Erro ao atualizar pedido',
+        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+      });
+    }
+  }
+
+  async function deleteOrder(orders: IOrder) {
+    try {
+      const res = await API_PROVIDER.deleteOrder(orders);
+      if (res) {
+        toast({
+          title: 'Pedido deletado com sucesso',
+          description: 'Pedido deletado com sucesso'
+        });
+        setOrders(order.filter((o) => o.id !== orders.id));
+      } else {
+        toast({
+          title: 'Erro ao deletar pedido',
+          description: 'Erro ao deletar pedido',
+          action: (
+            <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+          )
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao deletar pedido',
+        description: 'Erro ao deletar pedido',
+        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+      });
+    }
+  }
+
+  async function getOrderByIdCostumer(id: number) {
+    try {
+      const res = await API_PROVIDER.getOrderByIdCosutmer(id);
+      if (res) {
+        toast({
+          title: 'Pedidos carregados com sucesso',
+          description: 'Pedidos carregados com sucesso'
+        });
+        setOrders(res);
+      } else {
+        toast({
+          title: 'Erro ao carregar pedidos',
+          description: 'Erro ao carregar pedidos',
+          action: (
+            <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+          )
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao carregar pedidos',
+        description: 'Erro ao carregar pedidos',
+        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+      });
+    }
+  }
+
   useEffect(() => {
     getProdutos();
     getFornecedor();
@@ -327,6 +469,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         produtos,
         fornecedor,
         usuario,
+        order,
         setProdutos,
         getProdutos,
         getFornecedor,
@@ -338,7 +481,12 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         deleteFornecedor,
         createUsuario,
         login,
-        logout
+        logout,
+        getOrders,
+        createOrder,
+        updateOrder,
+        deleteOrder,
+        getOrderByIdCostumer
       }}
     >
       {children}
