@@ -98,6 +98,12 @@ export const API_PROVIDER = {
 
     return data;
   },
+  getOrders: async () => {
+    const res = await api.get('pedido');
+    const data: IOrder[] = res.data.data;
+
+    return data;
+  },
   getOrderById: async (id: number) => {
     const res = await api.get(`pedido/${id}`);
     const data: IOrder = res.data.data;
