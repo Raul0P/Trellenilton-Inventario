@@ -2,54 +2,48 @@ import { Button } from '@/components/ui/button';
 import { Edit, Trash } from 'lucide-react';
 import { useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
-export const columns = () => {
-  const { fornecedor, produtos, cliente } = useContext(AuthContext);
+export const useColumns = () => {
+  const { produtos, cliente } = useContext(AuthContext);
   console.log('produtos', produtos);
   return [
     {
-      accessorKey: 'fornecedor',
-      header: 'Fornecedor',
+      accessorKey: 'id',
+      header: 'ID'
+    },
+    {
+      accessorKey: 'clienteId',
+      header: 'Cliente',
       cell: ({ row }) => {
-        return (
-          <span>
-            {fornecedor.find((f) => f.id === row.original.fornecedor)?.name}
-          </span>
-        );
+        const clienteId = row.original.clienteId;
+        const clienteName = cliente.find((c) => c.id === clienteId)?.name;
+        return clienteName || 'Cliente não encontrado';
       }
     },
     {
-      accessorKey: 'produtos',
-      header: 'Produtos',
+      accessorKey: 'status',
+      header: 'Status'
+    },
+    {
+      accessorKey: 'total',
+      header: 'Total',
       cell: ({ row }) => {
-        return (
-          <ul>
-            {row.original.produtos.map((p) => (
-              <li key={p}>{produtos.find((pr) => pr.id === p)?.name}</li>
-            ))}
-          </ul>
-        );
+        const total = row.original.total;
+        return `R$ ${total?.toFixed(2) || '0.00'}`;
       }
     },
     {
-      id: 'cliente',
-      accessoFn: (row) => {
-        const costumer = cliente.find((c) => c.id === row.original.cliente);
-        return costumer?.name || 'Sem cliente';
-      },
-      header: ({ column }) => {
-        return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Cliente
-            {column.getIsSorted() === 'asc'
-              ? ' ↑'
-              : column.getIsSorted() === 'desc'
-                ? ' ↓'
-                : ''}
-          </Button>
-        );
+      accessorKey: 'itens',
+      header: 'Itens',
+      cell: ({ row }) => {
+        const itens = row.original.itens;
+        if (!itens || !Array.isArray(itens)) return '-';
+
+        return itens.map((item) => (
+          <div key={item.id} className="text-sm">
+            {produtos.find((p) => p.id === item.produtoId)?.name} -{' '}
+            {item.quantidade}x
+          </div>
+        ));
       }
     },
     {
