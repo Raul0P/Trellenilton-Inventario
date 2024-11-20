@@ -27,6 +27,13 @@ import InputMask from 'react-input-mask';
 import { IOrder } from '@/interface/axios/response/IOrders';
 
 import { OrderEnum } from '@/interface/enums/OrderEnum';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
 
 const ordersSchema = z.object({
   clienteId: z.number({
@@ -55,7 +62,8 @@ export default function OrdersPage() {
     getOrders,
     getOrderByIdCostumer,
     deleteOrder,
-    updateOrder
+    updateOrder,
+    cliente
   } = useContext(AuthContext);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingOrder, setEditingOrder] = useState<IOrder | null>(null);
@@ -98,7 +106,7 @@ export default function OrdersPage() {
     form.reset();
   };
 
-  const updatedColumns = columns.map((col) => {
+  const updatedColumns = columns().map((col) => {
     if (col.id === 'actions') {
       return {
         ...col,
@@ -138,7 +146,7 @@ export default function OrdersPage() {
         <DataTable
           columns={updatedColumns}
           data={order}
-          onAddFornecedor={handleAddOrder}
+          ondAddOrder={handleAddOrder}
         />
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogContent>
@@ -154,64 +162,33 @@ export default function OrdersPage() {
               >
                 <FormField
                   control={form.control}
-                  name="name"
+                  name="clienteId"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Nome</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
+                      <FormLabel>Cliente</FormLabel>
+                      <Select
+                        onValueChange={(value) => field.onChange(value)}
+                        value={field.value?.toString()}
+                      >
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Selecione um cliente" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>
+                          {cliente.map((c) => (
+                            <SelectItem
+                              key={c.id}
+                              value={c.id?.toString() || ''}
+                            >
+                              {c.name}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </FormItem>
                   )}
                 />
-                <FormField
-                  control={form.control}
-                  name="endereco"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Endereço</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="contato"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Contato</FormLabel>
-                      <FormControl>
-                        <Input {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="cnpj"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>CNPJ</FormLabel>
-                      <FormControl>
-                        <InputMask
-                          mask="99.999.999/9999-99"
-                          value={field.value}
-                          onChange={field.onChange}
-                          onBlur={field.onBlur}
-                        >
-                          {(inputProps) => <Input {...inputProps} />}
-                        </InputMask>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit">Criar Pedido</Button>
               </form>
             </Form>
           </DialogContent>
