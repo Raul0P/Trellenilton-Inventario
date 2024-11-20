@@ -4,120 +4,69 @@ import { useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 
 export const columns = () => {
-  const { fornecedor, produtos } = useContext(AuthContext);
+  const { fornecedor, produtos, cliente } = useContext(AuthContext);
   console.log('produtos', produtos);
   return [
     {
-      accessorKey: 'image',
-      header: 'Imagem',
-      cell: ({ row }) => (
-        <img
-          src={`http://localhost:3000${row.original.image}`}
-          alt={row.original.name}
-          className="h-8 w-8 rounded-full object-cover"
-        />
-      )
+      Header: 'ID',
+      accessor: 'id'
     },
     {
-      accessorKey: 'name',
-      header: ({ column }) => {
+      Header: 'Cliente',
+      accessor: 'cliente',
+      Cell: ({ row }) => {
         return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Nome
-            {column.getIsSorted() === 'asc'
-              ? ' ↑'
-              : column.getIsSorted() === 'desc'
-                ? ' ↓'
-                : ''}
-          </Button>
+          <span>
+            {cliente.find((c) => c.id === row.original.cliente)?.name}
+          </span>
         );
       }
     },
     {
-      accessorKey: 'price',
-      header: ({ column }) => {
+      Header: 'Fornecedor',
+      accessor: 'fornecedor',
+      Cell: ({ row }) => {
         return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Preço
-            {column.getIsSorted() === 'asc'
-              ? ' ↑'
-              : column.getIsSorted() === 'desc'
-                ? ' ↓'
-                : ''}
-          </Button>
+          <span>
+            {fornecedor.find((f) => f.id === row.original.fornecedor)?.name}
+          </span>
         );
       }
     },
     {
-      accessorKey: 'quantity',
-      header: ({ column }) => {
+      Header: 'Produtos',
+      accessor: 'produtos',
+      Cell: ({ row }) => {
         return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Quantidade
-            {column.getIsSorted() === 'asc'
-              ? ' ↑'
-              : column.getIsSorted() === 'desc'
-                ? ' ↓'
-                : ''}
-          </Button>
+          <ul>
+            {row.original.produtos.map((p) => (
+              <li key={p}>{produtos.find((pr) => pr.id === p)?.name}</li>
+            ))}
+          </ul>
         );
       }
     },
     {
-      accessorKey: 'description',
-      header: 'Descrição'
-    },
-    {
-      id: 'supplier',
-      accessorFn: (row) => {
-        const supplier = fornecedor.find((f) => f.id === row.fornecedorId);
-        return supplier?.name || 'N/A';
-      },
-      header: ({ column }) => {
+      Header: 'Ações',
+      accessor: 'actions',
+      Cell: ({ row }) => {
         return (
-          <Button
-            variant="ghost"
-            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
-          >
-            Fornecedor
-            {column.getIsSorted() === 'asc'
-              ? ' ↑'
-              : column.getIsSorted() === 'desc'
-                ? ' ↓'
-                : ''}
-          </Button>
-        );
-      }
-    },
-    {
-      id: 'actions',
-      cell: ({ row }) => {
-        const product = row.original;
-
-        return (
-          <div className="flex items-center space-x-2">
+          <div className="flex justify-center space-x-2">
             <Button
               variant="ghost"
-              size="icon"
-              onClick={() => console.log('Edit', product)}
+              onClick={() => {
+                console.log('edit', row.original);
+              }}
             >
-              <Edit className="h-4 w-4" />
+              <Edit />
             </Button>
             <Button
               variant="ghost"
-              size="icon"
-              onClick={() => console.log('Delete', product)}
+              onClick={() => {
+                console.log('delete', row.original);
+              }}
             >
-              <Trash className="h-4 w-4" />
+              <Trash />
             </Button>
           </div>
         );
