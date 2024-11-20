@@ -20,7 +20,8 @@ import {
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-//import Image from 'next/image';
+import { IOrder } from '@/interface/axios/response/IOrders';
+
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -55,43 +56,40 @@ export function DataTable<TData, TValue>({
       <div className="flex items-center justify-between py-4">
         <div className="flex gap-4">
           <Input
-            placeholder="Filtrar por nome..."
-            value={(table.getColumn('name')?.getFilterValue() as string) ?? ''}
+            placeholder="Filtrar por ID..."
+            value={(table.getColumn('id')?.getFilterValue() as string) ?? ''}
             onChange={(event) =>
-              table.getColumn('name')?.setFilterValue(event.target.value)
+              table.getColumn('id')?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />
           <Input
-            placeholder="Filtrar por preço..."
-            value={(table.getColumn('price')?.getFilterValue() as string) ?? ''}
-            onChange={(event) =>
-              table.getColumn('price')?.setFilterValue(event.target.value)
-            }
-            className="max-w-sm"
-          />
-          <Input
-            placeholder="Filtrar por quantidade..."
+            placeholder="Filtrar por cliente..."
             value={
-              (table.getColumn('quantity')?.getFilterValue() as string) ?? ''
+              (table.getColumn('clienteId')?.getFilterValue() as string) ?? ''
             }
             onChange={(event) =>
-              table.getColumn('quantity')?.setFilterValue(event.target.value)
+              table.getColumn('clienteId')?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />
           <Input
-            placeholder="Filtrar por fornecedor..."
+            placeholder="Filtrar por status..."
             value={
-              (table.getColumn('supplier')?.getFilterValue() as string) ?? ''
+              (table.getColumn('status')?.getFilterValue() as string) ?? ''
             }
             onChange={(event) =>
-              table.getColumn('supplier')?.setFilterValue(event.target.value)
+              table.getColumn('status')?.setFilterValue(event.target.value)
             }
             className="max-w-sm"
           />
         </div>
-        <Button onClick={ondAddOrder}>Criar novo pedido</Button>
+        <Button
+          onClick={ondAddOrder}
+          className="bg-primary hover:bg-primary/90"
+        >
+          Criar novo pedido
+        </Button>
       </div>
       <div className="rounded-md border">
         <Table>
@@ -144,22 +142,27 @@ export function DataTable<TData, TValue>({
         </Table>
       </div>
       <div className="flex items-center justify-end space-x-2 py-4">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Anterior
-        </Button>
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Próximo
-        </Button>
+        <div className="flex-1 text-sm text-muted-foreground">
+          {table.getFilteredRowModel().rows.length} pedido(s) encontrado(s)
+        </div>
+        <div className="space-x-2">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            Anterior
+          </Button>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Próximo
+          </Button>
+        </div>
       </div>
     </div>
   );
