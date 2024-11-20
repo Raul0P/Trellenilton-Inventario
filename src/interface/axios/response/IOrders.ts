@@ -5,6 +5,6 @@ export interface IOrder {
   id?: number;
   clienteId: number;
   status: OrderEnum;
-  total: number;
+  total?: number;
   itens: IOrderItens[];
 }
