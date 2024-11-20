@@ -1,3 +1,4 @@
+import { ICliente } from '../axios/response/ICliente';
 import { IFornecedor } from '../axios/response/IFornecedor';
 import { IOrder } from '../axios/response/IOrders';
 import { IProduto } from '../axios/response/IProduto';
@@ -10,6 +11,7 @@ export interface IAuthProviderProps {
 export interface IAuthContext {
   produtos: IProduto[];
   fornecedor: IFornecedor[];
+  cliente: ICliente[];
   usuario: IUsuario | undefined;
   order: IOrder[];
   setProdutos: (produtos: IProduto[]) => void;
@@ -21,6 +23,10 @@ export interface IAuthContext {
   updateFornecedor: (fornecedor: IFornecedor) => Promise<void>;
   createFornecedor: (fornecedor: IFornecedor) => Promise<void>;
   deleteFornecedor: (fornecedor: IFornecedor) => Promise<void>;
+  getCliente: () => Promise<void>;
+  updateCliente: (cliente: ICliente) => Promise<void>;
+  createCliente: (cliente: ICliente) => Promise<void>;
+  deleteCliente: (cliente: ICliente) => Promise<void>;
   createUsuario: (usuario: IUsuario) => Promise<IUsuario | undefined>;
   login: (email: string, password: string) => Promise<IUsuario | undefined>;
   logout: () => void;

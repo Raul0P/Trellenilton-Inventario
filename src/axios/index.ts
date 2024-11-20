@@ -4,6 +4,7 @@ import { IFornecedor } from '@/interface/axios/response/IFornecedor';
 import { IUsuario } from '@/interface/axios/response/IUsuario';
 import { ILoginResponse } from '@/interface/axios/response/ILoginResponse';
 import { IOrder } from '@/interface/axios/response/IOrders';
+import { ICliente } from '@/interface/axios/response/ICliente';
 
 export const API_PROVIDER = {
   getProdutos: async () => {
@@ -124,6 +125,35 @@ export const API_PROVIDER = {
   },
   deleteOrder: async (order: IOrder) => {
     const res = await api.delete(`pedido/${order.id}`);
+
+    return res.data;
+  },
+  getCliente: async () => {
+    const res = await api.get('cliente');
+    const data: ICliente[] = res.data.data;
+
+    return data;
+  },
+  getClienteById: async (id: number) => {
+    const res = await api.get(`cliente/${id}`);
+    const data: ICliente[] = res.data.data;
+
+    return data;
+  },
+  createCliente: async (cliente: ICliente) => {
+    const res = await api.post('cliente', cliente);
+    const data: ICliente = res.data;
+
+    return data;
+  },
+  updateCliente: async (cliente: ICliente) => {
+    const res = await api.patch(`cliente/${cliente.id}`, cliente);
+    const data: ICliente = res.data;
+
+    return data;
+  },
+  deleteCliente: async (cliente: ICliente) => {
+    const res = await api.delete(`cliente/${cliente.id}`);
 
     return res.data;
   }
