@@ -576,6 +576,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     getProdutos();
     getFornecedor();
     getCliente();
+    getOrders();
   }, []);
 
   return (
