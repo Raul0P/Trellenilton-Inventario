@@ -2,30 +2,14 @@ import { Button } from '@/components/ui/button';
 import { Edit, Trash } from 'lucide-react';
 import { useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
-
 export const columns = () => {
   const { fornecedor, produtos, cliente } = useContext(AuthContext);
   console.log('produtos', produtos);
   return [
     {
-      Header: 'ID',
-      accessor: 'id'
-    },
-    {
-      Header: 'Cliente',
-      accessor: 'cliente',
-      Cell: ({ row }) => {
-        return (
-          <span>
-            {cliente.find((c) => c.id === row.original.cliente)?.name}
-          </span>
-        );
-      }
-    },
-    {
-      Header: 'Fornecedor',
-      accessor: 'fornecedor',
-      Cell: ({ row }) => {
+      accessorKey: 'fornecedor',
+      header: 'Fornecedor',
+      cell: ({ row }) => {
         return (
           <span>
             {fornecedor.find((f) => f.id === row.original.fornecedor)?.name}
@@ -34,9 +18,9 @@ export const columns = () => {
       }
     },
     {
-      Header: 'Produtos',
-      accessor: 'produtos',
-      Cell: ({ row }) => {
+      accessorKey: 'produtos',
+      header: 'Produtos',
+      cell: ({ row }) => {
         return (
           <ul>
             {row.original.produtos.map((p) => (
@@ -47,26 +31,47 @@ export const columns = () => {
       }
     },
     {
-      Header: 'Ações',
-      accessor: 'actions',
-      Cell: ({ row }) => {
+      id: 'cliente',
+      accessoFn: (row) => {
+        const costumer = cliente.find((c) => c.id === row.original.cliente);
+        return costumer?.name || 'Sem cliente';
+      },
+      header: ({ column }) => {
         return (
-          <div className="flex justify-center space-x-2">
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === 'asc')}
+          >
+            Cliente
+            {column.getIsSorted() === 'asc'
+              ? ' ↑'
+              : column.getIsSorted() === 'desc'
+                ? ' ↓'
+                : ''}
+          </Button>
+        );
+      }
+    },
+    {
+      id: 'actions',
+      cell: ({ row }) => {
+        const cliente = row.original;
+
+        return (
+          <div className="flex items-center space-x-2">
             <Button
               variant="ghost"
-              onClick={() => {
-                console.log('edit', row.original);
-              }}
+              size="icon"
+              onClick={() => console.log('Edit', cliente)}
             >
-              <Edit />
+              <Edit className="h-4 w-4" />
             </Button>
             <Button
               variant="ghost"
-              onClick={() => {
-                console.log('delete', row.original);
-              }}
+              size="icon"
+              onClick={() => console.log('Delete', cliente)}
             >
-              <Trash />
+              <Trash className="h-4 w-4" />
             </Button>
           </div>
         );
