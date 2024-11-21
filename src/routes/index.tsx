@@ -36,16 +36,8 @@ export default function AppRouter() {
       ),
       children: [
         {
-          element: <DashboardPage />,
+          element: <ProductsPage />,
           index: true
-        },
-        {
-          path: 'student',
-          element: <StudentPage />
-        },
-        {
-          path: 'form',
-          element: <FormPage />
         },
         {
           path: 'products',

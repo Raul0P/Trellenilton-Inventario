@@ -8,7 +8,6 @@ import { ICliente } from '@/interface/axios/response/ICliente';
 import { IOrderItem } from '@/interface/axios/response/IOrderItem';
 import { ITransacao } from '@/interface/axios/response/ITransacao';
 import { IItemPedido } from '@/interface/axios/response/IITemPedido';
-import { ITransacao } from '@/interface/axios/response/ITransacao';
 
 export const API_PROVIDER = {
   getProdutos: async () => {
@@ -206,7 +205,12 @@ export const API_PROVIDER = {
   },
   deleteTransacao: async (transacao: ITransacao) => {
     const res = await api.delete(`transacao/${transacao.id}`);
-
     return res.data;
+  },
+
+  getItensPedido: async () => {
+    const res = await api.get('itempedido');
+    const data: IOrderItem[] = res.data.data;
+    return data;
   }
 };

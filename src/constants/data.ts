@@ -2,12 +2,6 @@ import { NavItem } from '@/types';
 
 export const navItems: NavItem[] = [
   {
-    title: 'Dashboard',
-    href: '/',
-    icon: 'dashboard',
-    label: 'Dashboard'
-  },
-  {
     title: 'Produtos',
     href: '/products',
     icon: 'produtos',

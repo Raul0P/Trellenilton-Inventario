@@ -413,34 +413,6 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   }
 
-  async function createTransacao(transacao: ITransacao) {
-    try {
-      const res = await API_PROVIDER.createTransacao(transacao);
-      if (res) {
-        toast({
-          title: 'Transação criada com sucesso',
-          description: 'Transação criada com sucesso'
-        });
-        setTransacoes([...transacoes, res]);
-      } else {
-        toast({
-          title: 'Erro ao criar transação',
-          description: 'Erro ao criar transação',
-          action: (
-            <ToastAction altText="Try again">Tentar Novamente</ToastAction>
-          )
-        });
-      }
-    } catch (error) {
-      toast({
-        variant: 'destructive',
-        title: 'Erro ao criar transação',
-        description: 'Erro ao criar transação',
-        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
-      });
-    }
-  }
-
   async function updateOrder(order: IOrder) {
     try {
       const res = await API_PROVIDER.updateOrder(order);
@@ -464,34 +436,6 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         variant: 'destructive',
         title: 'Erro ao atualizar pedido',
         description: 'Erro ao atualizar pedido',
-        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
-      });
-    }
-  }
-
-  async function deleteTransacao(transacao: ITransacao) {
-    try {
-      const res = await API_PROVIDER.deleteTransacao(transacao);
-      if (res) {
-        toast({
-          title: 'Transação deletada com sucesso',
-          description: 'Transação deletada com sucesso'
-        });
-        setTransacoes(transacoes.filter((t) => t.id !== transacao.id));
-      } else {
-        toast({
-          title: 'Erro ao deletar transação',
-          description: 'Erro ao deletar transação',
-          action: (
-            <ToastAction altText="Try again">Tentar Novamente</ToastAction>
-          )
-        });
-      }
-    } catch (error) {
-      toast({
-        variant: 'destructive',
-        title: 'Erro ao deletar transação',
-        description: 'Erro ao deletar transação',
         action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
       });
     }
@@ -707,26 +651,6 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   }
 
-  async function updateItemPedido(itemPedido: IItemPedido) {
-    try {
-      const res = await API_PROVIDER.updateItemPedido(itemPedido);
-      if (res) {
-        toast({
-          title: 'Item Pedido atualizado com sucesso',
-          description: 'Item Pedido atualizado com sucesso'
-        });
-        getItensPedidos();
-      }
-    } catch (error) {
-      toast({
-        variant: 'destructive',
-        title: 'Erro ao atualizar Item Pedido',
-        description: 'Erro ao atualizar Item Pedido',
-        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
-      });
-    }
-  }
-
   useEffect(() => {
     getProdutos();
     getFornecedor();
@@ -748,7 +672,6 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         transacoes,
         setProdutos,
         getItensPedidos,
-        updateItemPedido,
         getProdutos,
         getFornecedor,
         updateProduct,

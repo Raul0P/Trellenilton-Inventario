@@ -25,7 +25,6 @@ export interface IAuthContext {
   getProdutos: () => Promise<void>;
   getFornecedor: () => Promise<void>;
   getItensPedidos: () => Promise<void>;
-  updateItemPedido: (itemPedido: IItemPedido) => Promise<void>;
   updateProduct: (produto: IProduto) => Promise<void>;
   createProduct: (produto: FormData) => Promise<void>;
   deleteProduct: (produto: IProduto) => Promise<void>;
