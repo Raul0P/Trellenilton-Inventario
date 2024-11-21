@@ -3,6 +3,7 @@ import SignupPage from '@/pages/auth/signup';
 import ClientesPage from '@/pages/cliente';
 import FormPage from '@/pages/form';
 import FornecedorPage from '@/pages/fornecedor';
+import ItensOrdersPage from '@/pages/item-order';
 import NotFound from '@/pages/not-found';
 import OrdersPage from '@/pages/orders';
 import TransactionsPage from '@/pages/transactions';
@@ -65,6 +66,10 @@ export default function AppRouter() {
         {
           path: 'transactions',
           element: <TransactionsPage />
+        },
+        {
+          path: 'item-pedido',
+          element: <ItensOrdersPage />
         }
       ]
     }
