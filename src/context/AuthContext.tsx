@@ -8,8 +8,8 @@ import { IAuthContext, IAuthProviderProps } from '@/interface/context/Auth';
 import { createContext, useEffect, useState } from 'react';
 import { ToastAction } from '@/components/ui/toast';
 import { IOrder } from '@/interface/axios/response/IOrders';
-import { IOrderItem } from '@/interface/axios/response/IOrderItem';
 import { ITransacao } from '@/interface/axios/response/ITransacao';
+import { IItemPedido } from '@/interface/axios/response/IITemPedido';
 
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
@@ -19,6 +19,7 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
   const [cliente, setCliente] = useState<ICliente[]>([]);
   const [usuario, setUsuario] = useState<IUsuario | undefined>(undefined);
   const [transacoes, setTransacoes] = useState<ITransacao[]>([]);
+  const [itensPedidos, setItemPedido] = useState<IItemPedido[]>([]);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [order, setOrders] = useState<IOrder[]>([]);
   const { toast } = useToast();
@@ -630,12 +631,53 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
     }
   }
 
+  async function getItensPedidos() {
+    try {
+      const res = await API_PROVIDER.getItensPedido();
+      if (res) {
+        toast({
+          title: 'Itens Pedidos carregados com sucesso',
+          description: 'Itens Pedidos carregados com sucesso'
+        });
+        setItemPedido(res);
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao carregar Itens Pedidos',
+        description: 'Erro ao carregar Itens Pedidos',
+        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+      });
+    }
+  }
+
+  async function updateItemPedido(itemPedido: IItemPedido) {
+    try {
+      const res = await API_PROVIDER.updateItemPedido(itemPedido);
+      if (res) {
+        toast({
+          title: 'Item Pedido atualizado com sucesso',
+          description: 'Item Pedido atualizado com sucesso'
+        });
+        getItensPedidos();
+      }
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao atualizar Item Pedido',
+        description: 'Erro ao atualizar Item Pedido',
+        action: <ToastAction altText="Try again">Tentar Novamente</ToastAction>
+      });
+    }
+  }
+
   useEffect(() => {
     getProdutos();
     getFornecedor();
     getCliente();
     getOrders();
     getTransacaos();
+    getItensPedidos();
   }, []);
 
   return (
@@ -646,8 +688,11 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
         cliente,
         usuario,
         order,
+        itensPedidos,
         transacoes,
         setProdutos,
+        getItensPedidos,
+        updateItemPedido,
         getProdutos,
         getFornecedor,
         updateProduct,
