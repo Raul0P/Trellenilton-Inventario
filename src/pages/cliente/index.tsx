@@ -25,7 +25,8 @@ import { Edit, Trash } from 'lucide-react';
 import { AuthContext } from '@/context/AuthContext';
 import { ICliente } from '@/interface/axios/response/ICliente';
 import validateCPFOrCNPJ from '@/hooks/use-validator';
-import formatCPFOrCNPJ from '@/hooks/use-docs-input';
+import InputMask from 'react-input-mask';
+import CPF_CNPJ_Input from '@/hooks/use-docs-input';
 
 const clienteSchema = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),
@@ -186,18 +187,14 @@ export default function ClientesPage() {
                     <FormItem>
                       <FormLabel>CPF ou CNPJ</FormLabel>
                       <FormControl>
-                        <Input
-                          value={formatCPFOrCNPJ(field.value || '')} // Aplica a máscara ao valor atual
-                          maxLength={18}
-                          onChange={(event) => {
-                            const rawValue = event.target.value.replace(
-                              /\D/g,
-                              ''
-                            ); // Remove a máscara ao atualizar
-                            field.onChange(rawValue); // Atualiza o estado do formulário com o valor limpo
-                          }}
-                          placeholder="Digite o CPF ou CNPJ"
-                        />
+                        <InputMask
+                          mask={CPF_CNPJ_Input(field.value)}
+                          value={field.value || ''}
+                          onChange={(e) => field.onChange(e.target.value)}
+                          onBlur={field.onBlur}
+                        >
+                          {(inputProps) => <Input {...inputProps} />}
+                        </InputMask>
                       </FormControl>
                       {fieldState.error && (
                         <FormMessage>{fieldState.error.message}</FormMessage>
