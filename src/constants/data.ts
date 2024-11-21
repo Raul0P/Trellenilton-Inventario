@@ -36,6 +36,12 @@ export const navItems: NavItem[] = [
     href: '/transactions',
     icon: 'post',
     label: 'Transações'
+  },
+  {
+    title: 'Item Pedido',
+    href: '/item-pedido',
+    icon: 'post',
+    label: 'Item Pedido'
   }
 ];
 
