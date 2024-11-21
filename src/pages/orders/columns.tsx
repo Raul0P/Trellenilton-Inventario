@@ -4,7 +4,6 @@ import { useContext } from 'react';
 import { AuthContext } from '@/context/AuthContext';
 export const useColumns = () => {
   const { produtos, cliente } = useContext(AuthContext);
-  console.log('produtos', produtos);
   return [
     {
       accessorKey: 'id',
