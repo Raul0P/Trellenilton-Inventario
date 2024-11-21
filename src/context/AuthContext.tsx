@@ -8,6 +8,7 @@ import { IAuthContext, IAuthProviderProps } from '@/interface/context/Auth';
 import { createContext, useEffect, useState } from 'react';
 import { ToastAction } from '@/components/ui/toast';
 import { IOrder } from '@/interface/axios/response/IOrders';
+import { IOrderItem } from '@/interface/axios/response/IOrderItem';
 
 export const AuthContext = createContext<IAuthContext>({} as IAuthContext);
 
@@ -378,7 +379,15 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
 
   async function createOrder(newOrder: IOrder) {
     try {
-      const res = await API_PROVIDER.createOrder(newOrder);
+      const orderWithTimestamp = {
+        ...newOrder,
+        data: new Date().toISOString()
+      };
+
+      const res = await API_PROVIDER.createOrder(orderWithTimestamp);
+      if (!res) {
+        throw new Error('Erro ao criar pedido');
+      }
       if (res) {
         toast({
           title: 'Pedido criado com sucesso',
