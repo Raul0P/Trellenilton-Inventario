@@ -51,34 +51,7 @@ export function DataTable<TData, TValue>({
   return (
     <div>
       <div className="flex items-center py-4">
-        <div className="flex gap-4">
-          <Input
-            type="date"
-            value={dateRange.start}
-            onChange={(e) =>
-              setDateRange({ ...dateRange, start: e.target.value })
-            }
-            className="max-w-sm [&::-webkit-calendar-picker-indicator]:invert-[0.65] [&::-webkit-calendar-picker-indicator]:filter"
-            placeholder="Data inicial"
-          />
-          <Input
-            type="date"
-            value={dateRange.end}
-            onChange={(e) =>
-              setDateRange({ ...dateRange, end: e.target.value })
-            }
-            className="max-w-sm [&::-webkit-calendar-picker-indicator]:invert-[0.65] [&::-webkit-calendar-picker-indicator]:filter"
-            placeholder="Data final"
-          />
-          <Input
-            placeholder="Filtrar por tipo..."
-            value={(table.getColumn('tipo')?.getFilterValue() as string) ?? ''}
-            onChange={(event) =>
-              table.getColumn('tipo')?.setFilterValue(event.target.value)
-            }
-            className="max-w-sm"
-          />
-        </div>
+        <div className="flex gap-4"></div>
       </div>
       <div className="rounded-md border">
         <Table>
