@@ -7,7 +7,6 @@ import { IOrder } from '@/interface/axios/response/IOrders';
 import { ICliente } from '@/interface/axios/response/ICliente';
 import { IOrderItem } from '@/interface/axios/response/IOrderItem';
 import { ITransacao } from '@/interface/axios/response/ITransacao';
-import { get } from 'http';
 
 export const API_PROVIDER = {
   getProdutos: async () => {
@@ -178,6 +177,8 @@ export const API_PROVIDER = {
   },
   deleteCliente: async (cliente: ICliente) => {
     const res = await api.delete(`cliente/${cliente.id}`);
+
+    return res.data;
   },
   getTransacaos: async () => {
     const res = await api.get('transacao');
