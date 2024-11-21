@@ -5,7 +5,6 @@ import { AuthContext } from '@/context/AuthContext';
 
 export const columns = () => {
   const { fornecedor, produtos } = useContext(AuthContext);
-  console.log('produtos', produtos);
   return [
     {
       accessorKey: 'image',
