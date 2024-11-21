@@ -330,10 +330,8 @@ export default function OrdersPage() {
                                       0
                                     );
 
-                                    // Update display total
                                     setDisplayTotal(newTotal);
 
-                                    // Keep form total for submission
                                     form.setValue('total', newTotal, {
                                       shouldValidate: true,
                                       shouldDirty: true,
