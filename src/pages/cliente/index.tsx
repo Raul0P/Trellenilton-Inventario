@@ -25,8 +25,7 @@ import { Edit, Trash } from 'lucide-react';
 import { AuthContext } from '@/context/AuthContext';
 import { ICliente } from '@/interface/axios/response/ICliente';
 import validateCPFOrCNPJ from '@/hooks/use-validator';
-import InputMask from 'react-input-mask';
-import CPF_CNPJ_Input from '@/hooks/use-docs-input';
+import formatCPFOrCNPJ from '@/hooks/use-docs-input';
 
 const clienteSchema = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),
@@ -180,45 +179,31 @@ export default function ClientesPage() {
                     </FormItem>
                   )}
                 />
-
-                {/* DESISTO DESSA MERDA */}
                 <FormField
                   control={form.control}
                   name="cpf_cnpj"
-                  render={({ field, fieldState }) => {
-                    const currentMask = CPF_CNPJ_Input(field.value || ''); // Obtém a máscara baseada no valor atual
-
-                    return (
-                      <FormItem>
-                        <FormLabel>CPF ou CNPJ</FormLabel>
-                        <FormControl>
-                          <InputMask
-                            mask={currentMask} // Aplica a máscara dinâmica
-                            value={field.value || ''}
-                            alwaysShowMask={false}
-                            onChange={(e) => {
-                              const cleanValue = e.target.value.replace(
-                                /\D/g,
-                                ''
-                              ); // Remove a máscara
-                              field.onChange(cleanValue); // Atualiza o estado com o valor limpo
-                            }}
-                            onBlur={field.onBlur}
-                          >
-                            {(inputProps) => (
-                              <Input
-                                {...inputProps}
-                                maxLength={18} // Limita ao maior tamanho possível com máscara
-                              />
-                            )}
-                          </InputMask>
-                        </FormControl>
-                        {fieldState.error && (
-                          <FormMessage>{fieldState.error.message}</FormMessage>
-                        )}
-                      </FormItem>
-                    );
-                  }}
+                  render={({ field, fieldState }) => (
+                    <FormItem>
+                      <FormLabel>CPF ou CNPJ</FormLabel>
+                      <FormControl>
+                        <Input
+                          value={formatCPFOrCNPJ(field.value || '')} // Aplica a máscara ao valor atual
+                          maxLength={18}
+                          onChange={(event) => {
+                            const rawValue = event.target.value.replace(
+                              /\D/g,
+                              ''
+                            ); // Remove a máscara ao atualizar
+                            field.onChange(rawValue); // Atualiza o estado do formulário com o valor limpo
+                          }}
+                          placeholder="Digite o CPF ou CNPJ"
+                        />
+                      </FormControl>
+                      {fieldState.error && (
+                        <FormMessage>{fieldState.error.message}</FormMessage>
+                      )}
+                    </FormItem>
+                  )}
                 />
                 <Button type="submit">Salvar Cliente</Button>
               </form>
