@@ -5,6 +5,7 @@ import { IUsuario } from '@/interface/axios/response/IUsuario';
 import { ILoginResponse } from '@/interface/axios/response/ILoginResponse';
 import { IOrder } from '@/interface/axios/response/IOrders';
 import { ICliente } from '@/interface/axios/response/ICliente';
+import { IOrderItem } from '@/interface/axios/response/IOrderItem';
 
 export const API_PROVIDER = {
   getProdutos: async () => {
@@ -95,7 +96,28 @@ export const API_PROVIDER = {
   },
   createOrder: async (order: IOrder) => {
     const res = await api.post('pedido', order);
-    const data: IOrder = res.data;
+    const data: IOrder = res.data.data;
+
+    const items = order.itens.map((i) => {
+      return {
+        pedidoId: data.id as number,
+        produtoId: i.produtoId,
+        quantidade: i.quantidade,
+        precoUnitario: i.preco
+      };
+    });
+    const resItems = await Promise.all(
+      items.map((item) => API_PROVIDER.createOrdemItem(item))
+    );
+    if (!resItems) {
+      throw new Error('Erro ao criar itens do pedido');
+    }
+
+    return data;
+  },
+  createOrdemItem: async (orderItem: IOrderItem) => {
+    const res = await api.post('itempedido', orderItem);
+    const data: IOrderItem = res.data;
 
     return data;
   },
