@@ -6,7 +6,6 @@ import { AuthContext } from '@/context/AuthContext';
 
 export default function ItensOrdersPage() {
   const { itensPedidos } = useContext(AuthContext);
-
   return (
     <>
       <PageHead title="ItensOrdersPage" />
