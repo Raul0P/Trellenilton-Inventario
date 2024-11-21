@@ -26,6 +26,7 @@ import { AuthContext } from '@/context/AuthContext';
 import { ICliente } from '@/interface/axios/response/ICliente';
 import validateCPFOrCNPJ from '@/hooks/use-validator';
 import InputMask from 'react-input-mask';
+import CPF_CNPJ_Input from '@/hooks/use-docs-input';
 
 const clienteSchema = z.object({
   name: z.string().min(1, 'Nome é obrigatório'),
@@ -187,9 +188,9 @@ export default function ClientesPage() {
                       <FormLabel>CPF ou CNPJ</FormLabel>
                       <FormControl>
                         <InputMask
-                          mask="999.999.999-99"
-                          value={field.value}
-                          onChange={field.onChange}
+                          mask={CPF_CNPJ_Input(field.value)}
+                          value={field.value || ''}
+                          onChange={(e) => field.onChange(e.target.value)}
                           onBlur={field.onBlur}
                         >
                           {(inputProps) => <Input {...inputProps} />}
