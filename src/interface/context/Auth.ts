@@ -1,5 +1,6 @@
 import { ICliente } from '../axios/response/ICliente';
 import { IFornecedor } from '../axios/response/IFornecedor';
+import { IItemPedido } from '../axios/response/IITemPedido';
 import { IOrder } from '../axios/response/IOrders';
 import { IProduto } from '../axios/response/IProduto';
 import { ITransacao } from '../axios/response/ITransacao';
@@ -16,12 +17,15 @@ export interface IAuthContext {
   cliente: ICliente[];
   usuario: IUsuario | undefined;
   order: IOrder[];
+  itensPedidos: IItemPedido[];
   getTransacaos: () => Promise<void>;
   createTransacao: (transacao: ITransacao) => Promise<void>;
   deleteTransacao: (transacao: ITransacao) => Promise<void>;
   setProdutos: (produtos: IProduto[]) => void;
   getProdutos: () => Promise<void>;
   getFornecedor: () => Promise<void>;
+  getItensPedidos: () => Promise<void>;
+  updateItemPedido: (itemPedido: IItemPedido) => Promise<void>;
   updateProduct: (produto: IProduto) => Promise<void>;
   createProduct: (produto: FormData) => Promise<void>;
   deleteProduct: (produto: IProduto) => Promise<void>;
