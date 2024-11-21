@@ -9,6 +9,7 @@ import { IOrderItem } from '@/interface/axios/response/IOrderItem';
 import { ITransacao } from '@/interface/axios/response/ITransacao';
 import { IItemPedido } from '@/interface/axios/response/IITemPedido';
 import { ITransacao } from '@/interface/axios/response/ITransacao';
+import { IItemPedido } from '@/interface/axios/response/IITemPedido';
 
 export const API_PROVIDER = {
   getProdutos: async () => {
