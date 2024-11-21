@@ -141,8 +141,6 @@ export default function ProductsPage() {
     return col;
   });
 
-  console.log('produtos', produtos);
-
   return (
     <>
       <PageHead title="Produtos" />
