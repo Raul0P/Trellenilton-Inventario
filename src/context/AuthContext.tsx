@@ -554,22 +554,12 @@ export const AuthProvider = ({ children }: IAuthProviderProps) => {
 
   async function deleteCliente(clientes: ICliente) {
     try {
-      const res = await API_PROVIDER.deleteCliente(clientes);
-      if (res) {
-        toast({
-          title: 'Cliente deletado com sucesso',
-          description: 'Cliente deletado com sucesso'
-        });
-        setCliente(cliente.filter((c) => c.id !== clientes.id));
-      } else {
-        toast({
-          title: 'Erro ao deletar cliente',
-          description: 'Erro ao deletar cliente',
-          action: (
-            <ToastAction altText="Try again">Tentar Novamente</ToastAction>
-          )
-        });
-      }
+      await API_PROVIDER.deleteCliente(clientes);
+      toast({
+        title: 'Cliente deletado com sucesso',
+        description: 'Cliente deletado com sucesso'
+      });
+      setCliente(cliente.filter((c) => c.id !== clientes.id));
     } catch (error) {
       toast({
         variant: 'destructive',
