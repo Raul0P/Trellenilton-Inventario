@@ -7,6 +7,8 @@ import { IOrder } from '@/interface/axios/response/IOrders';
 import { ICliente } from '@/interface/axios/response/ICliente';
 import { IOrderItem } from '@/interface/axios/response/IOrderItem';
 import { ITransacao } from '@/interface/axios/response/ITransacao';
+import { IItemPedido } from '@/interface/axios/response/IITemPedido';
+import { get } from 'http';
 
 export const API_PROVIDER = {
   getProdutos: async () => {
@@ -204,6 +206,32 @@ export const API_PROVIDER = {
   },
   deleteTransacao: async (transacao: ITransacao) => {
     const res = await api.delete(`transacao/${transacao.id}`);
+
+    return res.data;
+  },
+  getItensPedido: async () => {
+    const res = await api.get('itempedido/');
+    const data: IItemPedido[] = res.data.data;
+
+    return data;
+  },
+  getByItemPedidoId: async (id: number) => {
+    const res = await api.get(`itempedido/${id}`);
+    const data: IItemPedido = res.data.data;
+
+    return data;
+  },
+  updateItemPedido: async (itemPedido: IItemPedido) => {
+    const res = await api.patch(
+      `itempedido/${itemPedido.pedidoId}`,
+      itemPedido
+    );
+    const data: IItemPedido = res.data;
+
+    return data;
+  },
+  deleteItemPedido: async (itemPedido: IItemPedido) => {
+    const res = await api.delete(`itempedido/${itemPedido.pedidoId}`);
 
     return res.data;
   }
