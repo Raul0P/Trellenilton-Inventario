@@ -180,25 +180,45 @@ export default function ClientesPage() {
                     </FormItem>
                   )}
                 />
+
+                {/* DESISTO DESSA MERDA */}
                 <FormField
                   control={form.control}
                   name="cpf_cnpj"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>CPF ou CNPJ</FormLabel>
-                      <FormControl>
-                        <InputMask
-                          mask={CPF_CNPJ_Input(field.value)}
-                          value={field.value || ''}
-                          onChange={(e) => field.onChange(e.target.value)}
-                          onBlur={field.onBlur}
-                        >
-                          {(inputProps) => <Input {...inputProps} />}
-                        </InputMask>
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
+                  render={({ field, fieldState }) => {
+                    const currentMask = CPF_CNPJ_Input(field.value || ''); // Obtém a máscara baseada no valor atual
+
+                    return (
+                      <FormItem>
+                        <FormLabel>CPF ou CNPJ</FormLabel>
+                        <FormControl>
+                          <InputMask
+                            mask={currentMask} // Aplica a máscara dinâmica
+                            value={field.value || ''}
+                            alwaysShowMask={false}
+                            onChange={(e) => {
+                              const cleanValue = e.target.value.replace(
+                                /\D/g,
+                                ''
+                              ); // Remove a máscara
+                              field.onChange(cleanValue); // Atualiza o estado com o valor limpo
+                            }}
+                            onBlur={field.onBlur}
+                          >
+                            {(inputProps) => (
+                              <Input
+                                {...inputProps}
+                                maxLength={18} // Limita ao maior tamanho possível com máscara
+                              />
+                            )}
+                          </InputMask>
+                        </FormControl>
+                        {fieldState.error && (
+                          <FormMessage>{fieldState.error.message}</FormMessage>
+                        )}
+                      </FormItem>
+                    );
+                  }}
                 />
                 <Button type="submit">Salvar Cliente</Button>
               </form>
